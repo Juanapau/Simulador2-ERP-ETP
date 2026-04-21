@@ -101,7 +101,10 @@
   .timer-display.stopped { color: #2ea96a; }
   .timer-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--dorado); margin-bottom: 1px; animation: pulse 1s infinite; }
   .timer-dot.stopped { background: #2ea96a; animation: none; }
+  .timer-dot.urgent  { background: #e04040; animation: pulse-urgent 0.5s infinite; }
+  .timer-display.urgent { color: #e04040; }
   @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.2; } }
+  @keyframes pulse-urgent { 0%,100%{ opacity:1; transform:scale(1.3); } 50%{ opacity:0.3; transform:scale(0.8); } }
 
   /* ── DESGLOSE POR DIMENSIÓN Y ÁREA ── */
   .res-analysis { max-width: 680px; margin: 0 auto 2.5rem; text-align: left; }
@@ -235,24 +238,24 @@
   <div class="progress-area">
     <span class="progress-label">Progreso</span>
     <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar" style="width:0%"></div></div>
-    <span class="score-counter" id="score-counter">0 / 50 respondidas</span>
+    <span class="score-counter" id="score-counter">0 / 40 respondidas</span>
   </div>
   <div class="timer-area" id="timer-area">
-    <span class="timer-label"><span class="timer-dot" id="timer-dot"></span> Tiempo</span>
-    <span class="timer-display" id="timer-display">00:00:00</span>
+    <span class="timer-label"><span class="timer-dot" id="timer-dot"></span> Tiempo restante</span>
+    <span class="timer-display" id="timer-display">01:00:00</span>
   </div>
 </header>
 
 <main>
   <div id="intro-screen">
     <h2>Practica para la prueba <span>ERP 2025</span></h2>
-    <p>Este simulador contiene 50 casos reales basados en los documentos normativos del Ministerio de Educación de la República Dominicana. Cada caso evalúa competencias de planificación pedagógica, gestión del aprendizaje y comportamientos profesionales. Las opciones se presentan en orden aleatorio en cada intento.</p>
-    <p class="intro-sustento">Esta práctica está sustentada en los documentos: <em>Componente Académico Modalidad Técnico Profesional y Modalidad en Artes</em>, <em>Estándares Profesionales y del Desempeño para la Certificación y Desarrollo de la Carrera Docente</em>, <em>Código para el Sistema de Protección y los Derechos Fundamentales de Niños, Niñas y Adolescentes (Ley 136-03)</em> y <em>Código de Ética del Docente (OD 22/2023)</em>.</p>
+    <p>Este simulador contiene 40 casos reales contextualizados en la docencia técnico profesional. Cada caso evalúa competencias de Planificación Pedagógica, Gestión del Aprendizaje y Comportamientos Profesionales. Las opciones se presentan en orden aleatorio en cada intento.</p>
+    <p class="intro-sustento">Esta práctica está sustentada en: <em>Componente Académico Técnico Profesional y Artes</em>, <em>Estándares Profesionales y del Desempeño Docente</em>, <em>Ley 136-03</em> y <em>Código de Ética del Docente (OD 22/2023)</em>.</p>
     <div class="intro-grid">
 
-      <!-- Card 1: 50 casos -->
+      <!-- Card 1: 40 casos -->
       <div class="intro-card">
-        <div class="intro-card-num">50</div>
+        <div class="intro-card-num">40</div>
         <div class="intro-card-label">Casos de estudio</div>
       </div>
 
@@ -374,609 +377,493 @@
    según la normativa dominicana vigente.
    ========================================================= */
 const rawQuestions = [
-  // ══ PLANIFICACIÓN PEDAGÓGICA (1-17) ══════════════════
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente Yolanda revisa el documento curricular y nota que su módulo técnico contempla dos competencias específicas y tres Competencias Fundamentales. Al redactar las intenciones pedagógicas de su planificación anual, ¿cuál práctica es más coherente con el diseño curricular dominicano?",
-    options:[
-      "Redactar las intenciones orientadas exclusivamente a las competencias específicas del módulo, ya que las Fundamentales se desarrollan transversalmente sin necesidad de planificarlas.",
-      "Redactar intenciones pedagógicas que visibilicen cómo las competencias específicas del módulo aportan al desarrollo de las Competencias Fundamentales seleccionadas.",
-      "Redactar las intenciones priorizando las Competencias Fundamentales y derivar de ellas los contenidos técnicos específicos del módulo.",
-      "Redactar intenciones independientes: unas para las competencias específicas y otras separadas para las Fundamentales, diferenciando sus momentos de desarrollo."
-    ], correct:1,
-    feedback:"Las Competencias Fundamentales no se desarrollan solas por transversalidad implícita ni se planifican por separado —eso las fragmenta. Tampoco se priorizan sobre las específicas. El diseño curricular dominicano exige que la planificación evidencie cómo el trabajo sobre las competencias específicas del módulo contribuye simultáneamente al desarrollo de las Fundamentales seleccionadas, evidenciando la articulación en las intenciones pedagógicas de cada unidad."
+
+// ══ PLANIFICACIÓN PEDAGÓGICA (1–14) ══════════════════════
+
+  // CASO 1
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"Un docente del módulo de Electricidad Industrial planifica una unidad sobre instalaciones residenciales. Al revisar su planificación, el coordinador nota que todas las actividades se realizan con ejercicios en papel y diagramas sin conexión con el sector productivo. ¿Qué ajuste es más pertinente para alinear la planificación con el Componente Académico Técnico Profesional?",
+  options:[
+    "Agregar videos de instalaciones eléctricas reales al inicio de cada clase para que los estudiantes visualicen el contexto del módulo.",
+    "Diseñar la situación de aprendizaje en torno a un caso real del sector: por ejemplo, la instalación del sistema eléctrico de un local comunitario, articulando todos los contenidos desde esa necesidad.",
+    "Incorporar visitas a empresas del sector eléctrico al final de la unidad para que los estudiantes observen cómo se aplica lo aprendido.",
+    "Añadir una sección de bibliografía técnica actualizada para que los estudiantes consulten casos reales cuando lo necesiten."
+  ],correct:1,
+  feedback:"La situación de aprendizaje debe contextualizar todos los contenidos desde un caso real del sector productivo, no como actividad adicional ni como recurso visual complementario. Videos, visitas al final o bibliografía no cumplen la función articuladora que exige el Componente Técnico Profesional: dar sentido auténtico a cada actividad desde el inicio de la unidad."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"El coordinador pedagógico revisa la planificación trimestral de la docente Rosa y observa que las actividades de aprendizaje no tienen conexión visible con situaciones del sector productivo de informática. ¿Cuál es la observación más pertinente que debe hacerle?",
-    options:[
-      "Que debe incorporar visitas a empresas o invitados del sector productivo para contextualizar los contenidos.",
-      "Que el componente académico técnico profesional exige que las situaciones de aprendizaje estén contextualizadas en el sector productivo correspondiente.",
-      "Que las actividades deben incluir referencias bibliográficas de autores del sector informático para validar su pertinencia.",
-      "Que el módulo debe incorporar proyectos finales con empresas locales al cierre del trimestre para vincular teoría y práctica."
-    ], correct:1,
-    feedback:"Las visitas y proyectos finales son estrategias puntuales, no solución estructural. Las referencias bibliográficas no sustituyen el contexto productivo en las actividades. La observación pertinente apunta al principio curricular: el Componente Académico Técnico Profesional establece que las situaciones de aprendizaje deben estar contextualizadas en el sector productivo desde el inicio, no solo al cierre ni mediante recursos externos ocasionales."
+
+  // CASO 2
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"La docente del módulo de Contabilidad Empresarial observa que sus estudiantes pueden realizar asientos contables correctamente en ejercicios del libro, pero no comprenden para qué sirven ni cómo se usan en una empresa real. ¿Qué estrategia didáctica resolvería mejor esta brecha entre el conocimiento técnico y su aplicación?",
+  options:[
+    "Asignar más ejercicios de asientos contables con mayor variedad de casos para que los estudiantes practiquen hasta automatizar el procedimiento.",
+    "Explicar al inicio de cada clase la utilidad práctica de los asientos contables con ejemplos de empresas conocidas por los estudiantes.",
+    "Proponer que los estudiantes lleven la contabilidad real o simulada de un pequeño negocio de la comunidad, aplicando los registros contables en un contexto auténtico.",
+    "Mostrar estados financieros reales de empresas dominicanas para que los estudiantes identifiquen dónde aparecen reflejados los asientos que practican."
+  ],correct:2,
+  feedback:"Llevar la contabilidad de un negocio real o simulado auténtico es la estrategia que conecta el procedimiento técnico con su propósito real, desarrollando comprensión funcional. Más práctica del mismo tipo refuerza el procedimiento sin resolver la falta de sentido. Explicar la utilidad verbalmente o mostrar estados financieros son acciones informativas que no garantizan la transferencia al contexto productivo."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"Al elaborar su planificación de unidad para el módulo de Programación, la docente debe seleccionar los indicadores de logro. ¿Cuál criterio debe guiar esa selección?",
-    options:[
-      "Seleccionar todos los indicadores que aparecen en el documento curricular para el módulo, sin omitir ninguno.",
-      "Seleccionar los indicadores que mejor se adapten al tiempo disponible en el trimestre y al nivel del grupo.",
-      "Seleccionar los indicadores que evidencien los niveles de desempeño esperados para los resultados de aprendizaje de esa unidad específica.",
-      "Seleccionar los indicadores que coincidan con los instrumentos de evaluación que la docente tiene disponibles."
-    ], correct:2,
-    feedback:"Incluir todos puede ser inviable en el tiempo disponible. Seleccionar por disponibilidad de tiempo o instrumentos invierte la lógica: primero se definen los indicadores y luego se diseñan los instrumentos. Los indicadores de logro deben seleccionarse en función de los resultados de aprendizaje que se persiguen en esa unidad, ya que son la expresión observable de esos resultados y deben guiar tanto la enseñanza como la evaluación."
+
+  // CASO 3
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"Al planificar el módulo de Mecánica Automotriz, el docente incluye el eje transversal de Medioambiente. Un colega le sugiere dedicar una clase introductoria sobre impacto ambiental de los vehículos. ¿Por qué esta sugerencia no es la mejor forma de integrar el eje transversal?",
+  options:[
+    "Porque el tema medioambiental no es relevante para la mecánica automotriz y añadiría contenido innecesario al módulo.",
+    "Porque dedicar una clase introductoria convierte el eje en un tema puntual aislado, en lugar de atravesar todo el módulo de forma continua e integrada.",
+    "Porque el eje transversal de Medioambiente no aplica a módulos técnicos, sino únicamente a asignaturas del área de ciencias naturales.",
+    "Porque una clase es insuficiente para cubrir el tema; se necesitarían al menos tres clases dedicadas para abordarlo adecuadamente."
+  ],correct:1,
+  feedback:"El principio de transversalidad exige que el eje atraviese el módulo de forma continua, no que se aborde en una clase separada. Dedicar una clase introductoria convierte el eje en un tema añadido, no transversal. La integración correcta ocurre cuando el análisis del impacto ambiental es criterio de evaluación en cada práctica, no un contenido puntual."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente Miriam incorpora en su planificación el eje transversal de Educación para la Paz. ¿Cómo debe integrarlo correctamente en un módulo de Análisis de Sistemas?",
-    options:[
-      "Diseñando una actividad específica sobre resolución pacífica de conflictos al inicio de la unidad para sensibilizar al grupo.",
-      "Incorporando situaciones de aprendizaje donde el análisis y diseño de sistemas implique trabajo colaborativo, diálogo y resolución consensuada de decisiones técnicas.",
-      "Incluyendo en la bibliografía del módulo lecturas sobre convivencia y paz aplicadas al entorno digital.",
-      "Destinando los últimos diez minutos de cada clase a una reflexión grupal sobre el valor de la paz en el contexto escolar."
-    ], correct:1,
-    feedback:"Una actividad puntual, las lecturas bibliográficas o la reflexión de cierre tratan el eje como tema añadido, no como transversal. La integración correcta lo convierte en una dimensión del propio aprendizaje técnico: diseñar sistemas requiriendo trabajo colaborativo, negociación y consenso en decisiones técnicas es lo que hace que el eje atraviese el módulo de forma genuina y no decorativa."
+
+  // CASO 4
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"El docente de Diseño de Modas termina de elaborar la planificación anual de su módulo. Al revisarla, el coordinador observa que los resultados de aprendizaje describen actividades que el docente realizará ('el docente presentará', 'el docente demostrará') en lugar de lo que los estudiantes lograrán. ¿Cuál es la implicación pedagógica de este error?",
+  options:[
+    "Que la planificación no tiene un enfoque centrado en el aprendizaje del estudiante, lo que impide evaluar si se desarrollaron las competencias esperadas.",
+    "Que los resultados de aprendizaje son demasiado específicos y deberían formularse de forma más general para adaptarse a distintos grupos.",
+    "Que el docente está asumiendo demasiada responsabilidad en el proceso y debería delegarles más tareas a los estudiantes.",
+    "Que la planificación está bien orientada porque el docente es quien conduce el proceso de enseñanza y debe describir sus acciones."
+  ],correct:0,
+  feedback:"Los resultados de aprendizaje deben expresar lo que el estudiante será capaz de saber, hacer y ser al finalizar la unidad, no las acciones del docente. Cuando se describen las actividades del docente, la evaluación se centra en la enseñanza y no en el aprendizaje, lo que impide verificar el desarrollo de competencias."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente finaliza su planificación anual del módulo técnico. Al revisarla, el coordinador pregunta: '¿Cómo garantiza que la planificación sea flexible sin perder coherencia?' ¿Cuál respuesta refleja mejor la práctica docente competente?",
-    options:[
-      "Dejando sin definir algunos contenidos y actividades para completarlos según cómo avance el grupo durante el año.",
-      "Planificando con margen de tiempo para imprevistos y estableciendo criterios claros para cuándo y cómo ajustar sin alterar los resultados de aprendizaje.",
-      "Elaborando dos versiones de la planificación: una básica y una avanzada para aplicar según el nivel que muestre el grupo.",
-      "Revisando la planificación al final de cada unidad y modificando los resultados de aprendizaje si el grupo no los alcanzó."
-    ], correct:1,
-    feedback:"Dejar contenidos sin definir no es flexibilidad, es imprecisión. Dos versiones paralelas duplican el trabajo sin garantizar coherencia. Modificar los resultados de aprendizaje cuando no se logran rebaja el estándar en lugar de reajustar la metodología. La planificación flexible competente tiene resultados definidos y no negociables, pero establece desde el inicio criterios explícitos para ajustar estrategias, ritmos y recursos cuando los datos del proceso lo demanden."
+
+  // CASO 5
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"Un docente de Refrigeración y Climatización planifica una práctica de taller en la que todos los estudiantes realizarán exactamente los mismos pasos con los mismos equipos al mismo tiempo. Al aplicarla, nota que algunos terminan muy antes y se distraen, mientras otros no logran completarla. ¿Cómo debería ajustar la planificación?",
+  options:[
+    "Reducir el número de pasos de la práctica para que todos los estudiantes puedan completarla en el tiempo asignado.",
+    "Diseñar la práctica con niveles de complejidad progresivos: una tarea base para todos y tareas de ampliación para quienes terminan antes, manteniendo el mismo resultado de aprendizaje.",
+    "Dividir el grupo en dos secciones según su velocidad de trabajo y planificar prácticas distintas para cada sección.",
+    "Asignar a los estudiantes que terminan antes que ayuden a sus compañeros más lentos para que todos terminen al mismo tiempo."
+  ],correct:1,
+  feedback:"El diseño con niveles progresivos permite que todos alcancen el mismo resultado de aprendizaje respetando los distintos ritmos, sin reducir el estándar ni separar permanentemente al grupo. Reducir la complejidad perjudica a quienes pueden más. Dividir el grupo crea etiquetas. Usar a los avanzados como tutores permanentes no garantiza su propio desarrollo."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"El docente Ramón observa que sus estudiantes avanzaron más rápido de lo esperado en el módulo de Redes. Terminaron todos los contenidos tres semanas antes del cierre del trimestre. ¿Cuál es la decisión pedagógica más pertinente?",
-    options:[
-      "Iniciar los contenidos del siguiente trimestre para aprovechar el tiempo disponible y adelantar el programa.",
-      "Asignar actividades de profundización y aplicación que consoliden y amplíen los resultados de aprendizaje ya logrados.",
-      "Utilizar el tiempo restante para repasar los contenidos del trimestre anterior y reforzar la memoria a largo plazo.",
-      "Permitir que los estudiantes trabajen libremente en proyectos personales de tecnología de su elección."
-    ], correct:1,
-    feedback:"Iniciar el siguiente trimestre sin planificación formal puede generar desfases posteriores. El repaso del trimestre anterior no responde al nivel de logro ya alcanzado. Los proyectos personales libres carecen de intención pedagógica vinculada a los resultados del módulo. Las actividades de profundización y ampliación son la respuesta más pertinente: mantienen la coherencia curricular, respetan el nivel alcanzado y aprovechan productivamente el tiempo dentro del marco de los resultados de aprendizaje del módulo."
+
+  // CASO 6
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"La docente de Gestión Empresarial quiere que sus estudiantes desarrollen la Competencia Fundamental de Pensamiento Lógico, Creativo y Crítico. Decide añadir una pregunta de reflexión al final de cada evaluación. ¿Por qué esta estrategia es insuficiente para desarrollar la competencia?",
+  options:[
+    "Porque las Competencias Fundamentales no pueden evaluarse con preguntas escritas; requieren proyectos de largo plazo.",
+    "Porque añadir una pregunta al final de la evaluación no desarrolla la competencia durante el proceso de aprendizaje; solo la evalúa puntualmente sin haberla trabajado.",
+    "Porque el Pensamiento Lógico, Creativo y Crítico no es una Competencia Fundamental que aplique al módulo de Gestión Empresarial.",
+    "Porque una sola pregunta no es suficiente; se necesitan al menos cinco preguntas de reflexión por evaluación para desarrollar la competencia."
+  ],correct:1,
+  feedback:"Las Competencias Fundamentales se desarrollan a través de las estrategias de aprendizaje durante todo el proceso, no se activan con una pregunta al final de la evaluación. Evaluarlas sin haberlas trabajado no garantiza su desarrollo. La competencia debe estar presente en las actividades cotidianas del módulo."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente técnica necesita seleccionar un instrumento para evaluar si los estudiantes lograron el resultado de aprendizaje 'Configurar redes locales aplicando protocolos de seguridad básica'. ¿Cuál instrumento es el más alineado?",
-    options:[
-      "Una prueba escrita con preguntas abiertas sobre los protocolos de seguridad estudiados en la unidad.",
-      "Una rúbrica de desempeño aplicada durante la ejecución de una práctica de configuración de red en el laboratorio.",
-      "Un portafolio digital donde los estudiantes recopilen evidencias de las actividades realizadas durante la unidad.",
-      "Una escala de valoración de actitudes que mida la disposición del estudiante durante las prácticas de laboratorio."
-    ], correct:1,
-    feedback:"La prueba escrita evalúa el conocimiento sobre protocolos, no la configuración. El portafolio recoge evidencias del proceso pero no evalúa directamente el desempeño técnico. La escala de actitudes evalúa el saber ser, no el saber hacer. Solo la rúbrica aplicada durante la ejecución en laboratorio evalúa directamente lo que el resultado de aprendizaje exige: 'configurar', un verbo de desempeño que requiere observación en acción, no reproducción escrita."
+
+  // CASO 7
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"El docente de Construcción planifica una práctica de albañilería para la próxima semana. Al revisar la planificación, el coordinador nota que hay actividades detalladas pero ningún instrumento de evaluación diseñado. El docente dice que evaluará 'observando cómo trabajan'. ¿Cuál es el problema pedagógico de esta práctica?",
+  options:[
+    "Que la observación no es válida como estrategia de evaluación en módulos técnicos; se requieren pruebas escritas.",
+    "Que sin criterios e instrumentos definidos previamente, la evaluación es subjetiva y los estudiantes no conocen qué se espera de su desempeño.",
+    "Que evaluar durante la práctica interrumpe el proceso de trabajo y genera ansiedad en los estudiantes.",
+    "Que el docente debería evaluar solo el producto final y no el proceso, para ser objetivo en la calificación."
+  ],correct:1,
+  feedback:"La observación es una estrategia válida, pero debe estar respaldada por instrumentos con criterios explícitos (lista de cotejo, rúbrica) definidos y comunicados antes de la práctica. Sin criterios previos, la evaluación es subjetiva, no garantiza transparencia y los estudiantes no saben qué se espera de ellos, lo que viola el principio de evaluación formativa."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"Al elaborar la planificación del módulo de Diseño de Reportes, la docente incluye la competencia 'Pensamiento Lógico, Creativo y Crítico'. ¿En cuál componente de la planificación se evidencia mejor cómo esta competencia se desarrollará?",
-    options:[
-      "En el listado de contenidos, donde se indica que se trabajarán análisis lógico y diseño creativo de reportes.",
-      "En las estrategias de aprendizaje, donde se describen actividades que exigen al estudiante analizar, cuestionar y proponer soluciones originales.",
-      "En los resultados de aprendizaje, donde se menciona explícitamente el Pensamiento Lógico como dimensión de logro.",
-      "En la bibliografía, donde se incluyen textos que desarrollan el pensamiento crítico aplicado al diseño gráfico."
-    ], correct:1,
-    feedback:"Los contenidos describen qué se enseña, no cómo se desarrolla la competencia. Los resultados de aprendizaje describen el logro esperado pero no el proceso de desarrollo. La bibliografía es recurso, no estrategia. Las competencias se desarrollan a través de las actividades y estrategias de aprendizaje: solo en ese componente se concreta cómo el estudiante analiza, cuestiona y propone —que es la operacionalización de la competencia en la práctica pedagógica cotidiana."
+
+  // CASO 8
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"La docente de Enfermería Básica planifica una práctica clínica en un centro de salud de la comunidad. El coordinador le pregunta qué condiciones debe cumplir según el Código de Ética antes de realizarla. ¿Cuál respuesta es la más completa y correcta?",
+  options:[
+    "Avisar al director del centro educativo con anticipación y asegurarse de que los estudiantes tengan el uniforme reglamentario.",
+    "Obtener autorización del Equipo de Gestión, presentar un programa detallado de la actividad y contar con autorización escrita de los padres o tutores.",
+    "Coordinar con el centro de salud receptor y elaborar un informe de evaluación de la actividad para entregar al coordinador al finalizar.",
+    "Solicitar autorización al Distrito Educativo y asegurarse de que la práctica esté contemplada en la planificación anual del módulo."
+  ],correct:1,
+  feedback:"El Código de Ética (Art. 12a) establece tres condiciones simultáneas para actividades fuera del plantel: autorización del Equipo de Gestión, programa detallado de la actividad y autorización escrita de los padres o tutores. Las otras opciones mencionan condiciones complementarias pero no las tres requeridas por la norma."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 1: Nivel de formación académica",
-    text:"Un docente técnico profesional tiene título de Técnico Superior en Sistemas pero no tiene formación pedagógica formal. Al momento de elaborar su planificación, ¿qué implicación tiene esto según los Estándares Profesionales del MINERD?",
-    options:[
-      "Que debe elaborar su planificación con el apoyo permanente del coordinador pedagógico hasta obtener la certificación docente.",
-      "Que la planificación es válida si los resultados de aprendizaje son técnicamente correctos, aunque no sigan el formato pedagógico oficial.",
-      "Que el docente tiene la obligación de actualizar su formación pedagógica de forma continua para mejorar la calidad de su planificación y práctica.",
-      "Que el centro educativo debe asignarle un tutor pedagógico para validar todas sus planificaciones antes de implementarlas."
-    ], correct:2,
-    feedback:"El apoyo del coordinador o un tutor validan externamente pero no resuelven el déficit formativo del docente. Una planificación técnicamente correcta sin competencia pedagógica no garantiza aprendizaje. Los Estándares Profesionales establecen que la formación continua —incluyendo la pedagógica— es obligación personal del docente, no una condición que se externaliza a otros. La actualización pedagógica es parte del Área 7 de la EDD y es responsabilidad intransferible del docente."
+
+  // CASO 9
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"El docente de Panadería y Repostería recibe un grupo nuevo al inicio del año. Antes de planificar la primera unidad, aplica una evaluación diagnóstica. Un colega le pregunta cómo usará esos resultados. ¿Cuál uso es el más pertinente pedagógicamente?",
+  options:[
+    "Para informar a los padres sobre el nivel de entrada de sus hijos y acordar compromisos de apoyo desde el hogar.",
+    "Para clasificar a los estudiantes en grupos de nivel y diseñar actividades completamente distintas para cada grupo.",
+    "Para ajustar el punto de partida de la planificación, el ritmo de avance y las estrategias de las primeras unidades según el diagnóstico real del grupo.",
+    "Para determinar si el grupo tiene las bases mínimas para iniciar el módulo o si requiere un período de nivelación previo."
+  ],correct:2,
+  feedback:"El uso pedagógico correcto de la evaluación diagnóstica es ajustar la planificación del docente: el punto de partida, el ritmo y las estrategias. Informar a los padres, clasificar por nivel o decidir si el grupo 'tiene bases mínimas' son usos que pueden generar etiquetas o excluir, y no corresponden al propósito formativo de la evaluación diagnóstica."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente detecta que un grupo de estudiantes del módulo técnico tiene acceso limitado a internet desde sus hogares. ¿Cómo debe reflejarse esto en su planificación?",
-    options:[
-      "Eliminando las actividades que requieran internet para evitar desventajas entre estudiantes.",
-      "Planificando las actividades digitales exclusivamente en el horario de laboratorio del centro educativo.",
-      "Incorporando en la planificación estrategias diferenciadas que garanticen que todos los estudiantes puedan alcanzar los resultados de aprendizaje con los recursos disponibles.",
-      "Notificando a los padres la situación y solicitando que resuelvan el problema de conectividad antes del inicio del módulo."
-    ], correct:2,
-    feedback:"Eliminar actividades digitales empobrece el currículo técnico. Limitarlas al laboratorio puede ser insuficiente. Trasladar la responsabilidad a los padres externaliza un problema pedagógico. La respuesta correcta aplica el principio de equidad en la planificación: no se eliminan los resultados de aprendizaje ni se espera que el problema se resuelva externamente, sino que se diseñan estrategias diferenciadas que garanticen el logro de todos los estudiantes dentro de las condiciones reales disponibles."
+
+  // CASO 10
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"El docente de Diseño Gráfico Digital quiere incorporar el eje transversal de Emprendimiento en su módulo. Propone que al finalizar el año los estudiantes presenten sus portafolios a empresarios del sector como proyecto final. ¿Por qué esta propuesta no integra correctamente el eje transversal?",
+  options:[
+    "Porque los empresarios externos no son evaluadores válidos en el sistema educativo dominicano.",
+    "Porque un proyecto final al cierre del año convierte el eje en una actividad puntual de cierre, no en un eje que atraviesa todo el módulo de forma continua.",
+    "Porque los portafolios son instrumentos de evaluación, no estrategias de aprendizaje, y no pueden usarse para integrar ejes transversales.",
+    "Porque el eje de Emprendimiento es exclusivo del área de Gestión Empresarial y no aplica a módulos de Diseño."
+  ],correct:1,
+  feedback:"Un proyecto final puntual al cierre del año no hace que el emprendimiento sea transversal; lo convierte en una actividad de aplicación ocasional. La transversalidad exige que el eje esté presente en las actividades cotidianas del módulo durante todo el año, orientando cómo se abordan los contenidos, no solo cómo se presentan al final."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"Al revisar el diseño curricular, la docente nota que el módulo de Administración de Redes tiene un resultado de aprendizaje que dice: 'Administra servicios de red en entornos reales aplicando criterios de seguridad y disponibilidad.' ¿Cuál secuencia didáctica es más coherente con este resultado?",
-    options:[
-      "Presentar los conceptos teóricos de seguridad, luego ejercicios de simulación y finalmente una práctica en entorno real.",
-      "Iniciar con una situación problemática real de administración de red, explorar los conceptos necesarios para resolverla y aplicarlos en entorno real.",
-      "Desarrollar primero todas las competencias conceptuales del módulo y reservar la práctica en entorno real para el final del trimestre.",
-      "Alternar sesiones teóricas y prácticas de forma equitativa durante toda la unidad, terminando con un examen integrador."
-    ], correct:1,
-    feedback:"La secuencia teoría-simulación-práctica separa artificialmente lo que el resultado exige integrado. Reservar el entorno real para el final no garantiza suficiente práctica. Alternar sin hilo conductor no orienta el aprendizaje hacia el resultado. El enfoque por competencias sugiere partir de la situación real que da sentido al aprendizaje, explorar los conceptos necesarios desde esa situación y retornar a ella para resolver el problema —ciclo que garantiza coherencia entre el resultado de aprendizaje y la secuencia didáctica."
+
+  // CASO 11
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"La docente de Fotografía y Diseño nota que su planificación incluye solo contenidos declarativos (conceptos, tipos, características). El coordinador le señala que la planificación está incompleta. ¿Qué le falta según el enfoque por competencias?",
+  options:[
+    "Los contenidos actitudinales únicamente, porque en un módulo técnico-artístico lo más importante son los valores y la disposición creativa.",
+    "Los contenidos procedimentales únicamente, porque en un módulo técnico lo más importante es el saber hacer.",
+    "Los contenidos procedimentales y actitudinales articulados con los declarativos, ya que la competencia integra los tres tipos simultáneamente.",
+    "Los objetivos generales del módulo, que permiten derivar los contenidos procedimentales y actitudinales faltantes."
+  ],correct:2,
+  feedback:"El enfoque por competencias exige los tres tipos de contenidos articulados: el saber (declarativo), el saber hacer (procedimental) y el saber ser (actitudinal). En un módulo de Fotografía, conocer los tipos de planos (declarativo), aplicar técnicas de composición (procedimental) y desarrollar criterio estético y responsabilidad profesional (actitudinal) son igualmente necesarios."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"Al final del año escolar, el docente técnico debe hacer la Rendición de Cuentas sobre los resultados de aprendizaje de su módulo. ¿Qué información es la más relevante para incluir según los lineamientos del MINERD?",
-    options:[
-      "El porcentaje de estudiantes aprobados y reprobados en cada período del año escolar.",
-      "Las calificaciones individuales de cada estudiante organizadas por período y por módulo.",
-      "El análisis de los resultados de aprendizaje logrados y no logrados, las estrategias utilizadas y los ajustes realizados durante el año.",
-      "Las actividades realizadas durante el año escolar con las fechas de ejecución y los recursos utilizados."
-    ], correct:2,
-    feedback:"El porcentaje de aprobados y las calificaciones son datos cuantitativos que no explican el proceso pedagógico. El listado de actividades describe lo que se hizo pero no lo que se logró ni cómo se respondió a los resultados. La Rendición de Cuentas pedagógica competente analiza qué resultados se lograron y cuáles no, por qué, qué estrategias se usaron y qué ajustes se realizaron —que es exactamente lo que el Art. 13h del Código de Ética exige: rendir cuentas del compromiso con los lineamientos pedagógicos y éticos, no solo de las calificaciones."
+
+  // CASO 12
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"El docente de Mecánica Automotriz recibe el currículo oficial y nota que no contempla los vehículos eléctricos, que ya son relevantes en el sector. Quiere incorporarlos. ¿Cuál es la acción más pertinente y normativamente correcta?",
+  options:[
+    "Sustituir el tema de motores de combustión por el de motores eléctricos, actualizando los resultados de aprendizaje para el grado.",
+    "Solicitar autorización al Distrito Educativo antes de incorporar cualquier contenido que no esté en el currículo oficial.",
+    "Incorporar los vehículos eléctricos como recurso didáctico contextualizado al servicio de los resultados de aprendizaje oficiales, documentándolo en su planificación.",
+    "Esperar que el MINERD actualice el currículo oficial antes de abordar tecnologías no contempladas en el documento vigente."
+  ],correct:2,
+  feedback:"La acción correcta usa los vehículos eléctricos como recurso contextualizado que sirve los resultados de aprendizaje oficiales, sin sustituirlos. Sustituir contenidos oficiales excede la autonomía docente. Solicitar aval distrital no es requerido para los recursos didácticos. Esperar la actualización curricular priva a los estudiantes de contenido relevante del sector."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente de Bases de Datos quiere asegurarse de que su evaluación diagnóstica sea realmente útil para su planificación. ¿Cuál práctica es la más efectiva?",
-    options:[
-      "Aplicar la evaluación diagnóstica en la primera semana y registrar los resultados en el expediente de cada estudiante.",
-      "Aplicar la evaluación, analizar los resultados grupales e individuales, y ajustar la secuencia, el ritmo y las estrategias de la planificación antes de comenzar la primera unidad.",
-      "Aplicar la evaluación y comunicar los resultados a los padres para que apoyen desde el hogar en los conocimientos previos deficientes.",
-      "Aplicar la evaluación y compartir los resultados con los estudiantes para que identifiquen sus propias fortalezas y debilidades."
-    ], correct:1,
-    feedback:"Registrar en el expediente es útil administrativamente pero no cambia la planificación. Comunicar a padres o a estudiantes puede ser complementario pero no es el uso pedagógico primario. La evaluación diagnóstica solo cumple su propósito cuando sus resultados modifican concretamente la planificación: ajustando el punto de partida de la primera unidad, el ritmo de avance y las estrategias en función del diagnóstico real del grupo, antes de comenzar —no después de haber planificado de forma independiente."
+
+  // CASO 13
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"Al cierre del trimestre, el docente de Redes de Computadoras verifica que el 75% del grupo logró los resultados de la unidad, pero el 25% restante no alcanzó el resultado de 'configurar redes locales con protocolos de seguridad básica'. ¿Cuál es la acción pedagógica más pertinente?",
+  options:[
+    "Registrar los resultados no logrados en el expediente académico para que sean retomados en la próxima unidad cuando el currículo lo permita.",
+    "Extender el plazo de entrega de la evaluación sumativa para dar una oportunidad adicional al 25% que no logró el resultado.",
+    "Analizar con ese grupo qué aspecto específico no comprendieron, diseñar actividades de refuerzo focalizadas y verificar el logro antes de avanzar.",
+    "Informar a los padres del 25% e indicarles que busquen apoyo externo de nivelación para que el grupo avance parejo."
+  ],correct:2,
+  feedback:"El docente tiene la responsabilidad pedagógica directa de analizar la causa del no logro, diseñar refuerzo específico y verificar el logro antes de avanzar. Registrar y pasar al siguiente tema abandona a esos estudiantes. Extender el plazo sin cambio metodológico repite lo que no funcionó. Derivar a apoyo externo externaliza una responsabilidad pedagógica que corresponde al docente."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"El docente técnico recibe un módulo que no ha impartido antes. ¿Cuál es el primer paso que debe dar según los Estándares Profesionales del MINERD?",
-    options:[
-      "Buscar materiales didácticos y tutoriales en línea sobre los contenidos del módulo para preparar las clases.",
-      "Consultar con un colega que haya impartido el módulo anteriormente para obtener su planificación y adaptarla.",
-      "Analizar el documento curricular del módulo para comprender los resultados de aprendizaje, competencias e indicadores de logro antes de planificar.",
-      "Aplicar una evaluación diagnóstica al grupo para determinar qué saben sobre el módulo y desde dónde iniciar la planificación."
-    ], correct:2,
-    feedback:"Los materiales en línea y la planificación de un colega son recursos útiles pero secundarios. La evaluación diagnóstica es importante, pero no puede diseñarse sin conocer primero qué resultados persigue el módulo. El primer paso indispensable es analizar el documento curricular oficial: comprender los resultados de aprendizaje, las competencias articuladas y los indicadores de logro es la base sobre la que se construye todo lo demás —planificación, diagnóstico, estrategias y evaluación."
+
+  // CASO 14
+  {dim:"Planificación Pedagógica",dimClass:"dim-planificacion",area:"Área 2: Aplicación del currículo",
+  text:"La docente de Turismo y Hotelería planifica un proyecto grupal de fin de trimestre. Al diseñar la evaluación, decide que todos los integrantes recibirán la misma calificación basada en la calidad del producto final. Un estudiante reclama que su aporte fue mucho mayor que el de sus compañeros. ¿Cómo debería haber diseñado la evaluación?",
+  options:[
+    "Pedirle al grupo que vote internamente para determinar qué porcentaje corresponde a cada integrante según su aporte percibido.",
+    "Evaluar únicamente el producto final con una calificación grupal, ya que el proyecto grupal implica responsabilidad colectiva.",
+    "Incluir tanto la evaluación del producto grupal como una evaluación del desempeño individual de cada integrante durante el proceso.",
+    "Pedir a cada estudiante un informe escrito sobre las tareas que realizó, para que el docente pueda calificar por separado."
+  ],correct:2,
+  feedback:"El enfoque por competencias exige evaluar tanto el producto grupal como el desempeño individual de cada estudiante. La calificación idéntica para todos no diferencia los aportes reales. La votación interna puede estar sesgada por dinámicas de grupo. El informe escrito describe lo hecho pero no evidencia la competencia desarrollada."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente incluye en su planificación una columna de 'Estrategias de evaluación' y otra de 'Instrumentos de evaluación'. El coordinador le observa que hay confusión entre ambos conceptos. ¿Cuál distinción es la correcta?",
-    options:[
-      "La estrategia es el tipo de actividad evaluativa (exposición, práctica, examen) y el instrumento es el formato de calificación (nota numérica, letra).",
-      "La estrategia define cuándo se evalúa (diagnóstica, formativa, sumativa) y el instrumento define qué se evalúa (conocimiento, habilidad, actitud).",
-      "La estrategia es la situación o actividad mediante la cual se recoge evidencia del aprendizaje, y el instrumento es la herramienta con criterios que permite valorar esa evidencia.",
-      "La estrategia es la técnica de evaluación elegida por el docente y el instrumento es el documento oficial que certifica el resultado del estudiante."
-    ], correct:2,
-    feedback:"Confundir estrategia con tipo de actividad o con el momento evaluativo, e instrumento con formato de calificación o documento oficial, son errores frecuentes que revelan confusión conceptual. La distinción correcta en el marco curricular dominicano es: la estrategia es la situación evaluativa diseñada para recoger evidencias (exposición, práctica, proyecto), y el instrumento es la herramienta con criterios explícitos que permite valorar esas evidencias de forma objetiva (rúbrica, lista de cotejo, escala de valoración)."
+
+// ══ GESTIÓN DEL APRENDIZAJE (15–27) ══════════════════════
+
+  // CASO 15
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"Durante una práctica de soldadura, el docente de Metalmecánica observa que la mayoría del grupo está realizando el biselado con el ángulo incorrecto. El docente tiene 20 minutos antes de que termine la práctica. ¿Cuál es la intervención más apropiada?",
+  options:[
+    "Dejar que los estudiantes terminen la práctica, identificar los errores durante la corrección y devolverlos en la próxima clase con las observaciones.",
+    "Detener la práctica y hacer una demostración breve con la técnica correcta frente al grupo completo, permitiendo que reinicien el proceso.",
+    "Acercarse individualmente a cada estudiante que presenta el error y corregirlo en su puesto sin interrumpir el flujo general.",
+    "Ampliar el tiempo de la práctica para que los estudiantes puedan identificar y corregir el error de forma autónoma con el manual técnico."
+  ],correct:1,
+  feedback:"Cuando el error es generalizado, la intervención grupal breve es la más eficiente: clarifica el procedimiento correcto para todos simultáneamente y aprovecha el momento activo de la práctica. Corregir en la próxima clase pierde el contexto de aprendizaje. La corrección individual uno a uno es ineficiente cuando el error es colectivo. Ampliar el tiempo sin intervención deja a los estudiantes practicando el error."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"Al planificar el módulo técnico, la docente decide que la situación de aprendizaje será el diseño de un sistema de inventario para una pequeña empresa del barrio. ¿Por qué esta elección es pedagógicamente pertinente?",
-    options:[
-      "Porque permite a los estudiantes salir del aula para recopilar información real, lo que hace las clases más dinámicas y motivadoras.",
-      "Porque una empresa real del barrio es accesible para visitas y su propietario puede participar como evaluador externo del proyecto.",
-      "Porque contextualiza el aprendizaje en una situación auténtica del sector, da sentido a los contenidos técnicos y conecta las competencias específicas con el entorno productivo real.",
-      "Porque permite integrar varias asignaturas del mismo grado en torno a un mismo proyecto, favoreciendo la interdisciplinariedad."
-    ], correct:2,
-    feedback:"La dinámica motivadora y las visitas son ventajas secundarias. La participación del propietario como evaluador es una posibilidad pero no la razón pedagógica central. La integración interdisciplinar es posible pero no es lo que define la pertinencia de la situación de aprendizaje. Lo que la hace pedagógicamente pertinente es su función curricular: contextualizar en una situación auténtica del sector productivo, que es la condición que el Componente Técnico Profesional exige para que la situación de aprendizaje cumpla su función articuladora."
+
+  // CASO 16
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"La docente de Cosmetología implementa una rúbrica para evaluar el corte de cabello de sus estudiantes. Al revisar las autoevaluaciones, nota que todos se asignan la puntuación máxima independientemente de la calidad de su trabajo. ¿Cuál es la respuesta pedagógica más adecuada?",
+  options:[
+    "Eliminar la autoevaluación del módulo porque los estudiantes no tienen la madurez suficiente para evaluarse objetivamente en contextos técnicos.",
+    "Reducir el peso de la autoevaluación en la calificación final para minimizar el impacto de las puntuaciones infladas.",
+    "Enseñar explícitamente a usar los criterios de la rúbrica mediante ejemplos de cortes con diferentes niveles de calidad, practicando la autoevaluación antes de aplicarla a trabajos reales.",
+    "Pedir que los estudiantes justifiquen por escrito cada puntuación que se asignan para que el docente pueda corregir las que estén infladas."
+  ],correct:2,
+  feedback:"La sobrevaluación sistemática indica que los estudiantes no saben usar los criterios de evaluación, no que sean deshonestos. La solución es enseñar a autoevaluarse: modelar con ejemplos concretos de distintos niveles de calidad antes de aplicar la rúbrica a su propio trabajo. Eliminar o reducir el peso no resuelve el problema; las justificaciones escritas tampoco garantizan criterio."
   },
-  {
-    dim:"Planificación Pedagógica", dimClass:"dim-planificacion",
-    area:"Área 2: Aplicación del currículo",
-    text:"La docente de Programación Orientada a Objetos planifica que sus estudiantes trabajen en tríos para desarrollar un proyecto. Al diseñar la evaluación de ese proyecto grupal, ¿qué debe asegurarse según el enfoque por competencias?",
-    options:[
-      "Que todos los miembros del trío reciban la misma calificación para fomentar la responsabilidad colectiva.",
-      "Que la evaluación incluya tanto la valoración del producto grupal como el desempeño individual de cada estudiante dentro del equipo.",
-      "Que cada estudiante evalúe a sus compañeros de trío mediante coevaluación para garantizar justicia en la calificación.",
-      "Que el grupo entregue un informe detallado de cómo se distribuyó el trabajo para que el docente pueda calificar por separado."
-    ], correct:1,
-    feedback:"Calificación idéntica para todos no diferencia aportes reales. La coevaluación entre pares es valiosa como proceso formativo pero insuficiente como única medida de desempeño individual. El informe de distribución describe quién hizo qué pero no evidencia la competencia. El enfoque por competencias exige evaluar tanto el producto grupal (evidencia del trabajo colaborativo) como el desempeño individual de cada estudiante (evidencia de que cada uno desarrolló la competencia), usando instrumentos diferenciados para cada dimensión."
+
+  // CASO 17
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"El docente de Programación Web observa que sus estudiantes resuelven correctamente los ejercicios del libro cuando la estructura es conocida, pero cuando presenta un problema con una estructura diferente no saben por dónde comenzar. ¿Qué estrategia desarrolla mejor la capacidad de resolver problemas en situaciones nuevas?",
+  options:[
+    "Aumentar la cantidad de ejercicios de práctica con variaciones del mismo tipo de problema para que los estudiantes automaticen el procedimiento.",
+    "Enseñar explícitamente estrategias de resolución de problemas (analizar, descomponer, planificar, implementar, verificar), modelando el proceso de pensamiento en voz alta con problemas de estructura variada.",
+    "Presentar solo ejercicios con la estructura exacta que los estudiantes deben dominar para el nivel, evitando variaciones que puedan generar confusión.",
+    "Pedir a los estudiantes que expliquen verbalmente cómo resolverían el problema antes de programar, para corregir su plan antes de que cometan errores."
+  ],correct:1,
+  feedback:"Enseñar explícitamente estrategias generales de resolución de problemas, modelando el proceso de pensamiento con problemas de estructura variada, desarrolla la flexibilidad cognitiva que permite enfrentar situaciones nuevas. La práctica repetida del mismo tipo desarrolla habilidad procedimental pero no transferencia. Limitar a un solo tipo de estructura evita el error pero impide la adaptabilidad."
   },
-  // ══ GESTIÓN DEL APRENDIZAJE (18-34) ══════════════════
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"Durante una práctica de laboratorio de Base de Datos, el docente observa que la mayoría del grupo repite el mismo error al aplicar las relaciones entre tablas. ¿Cuál acción de gestión del aprendizaje es la más pertinente en ese momento?",
-    options:[
-      "Dejar que los estudiantes terminen la práctica, identificar los errores en la corrección y devolverlos en la próxima clase.",
-      "Detener la práctica, realizar una intervención breve con el grupo completo para aclarar el concepto y retomar la práctica.",
-      "Acercarse individualmente a cada estudiante para corregir el error sin interrumpir el flujo general de la práctica.",
-      "Ampliar el tiempo de la práctica para que los estudiantes puedan identificar y corregir el error de forma autónoma."
-    ], correct:1,
-    feedback:"Corregir en la próxima clase pierde el momento de aprendizaje en contexto. La intervención individual cuando el error es generalizado es ineficiente y no resuelve la confusión conceptual compartida. Ampliar el tiempo sin intervención deja a los estudiantes practicando el error. Cuando el error es colectivo, la intervención grupal breve es la respuesta más eficiente: clarifica el concepto para todos simultáneamente, aprovecha el momento de la práctica y permite que todos retomen con la comprensión correcta."
+
+  // CASO 18
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"La docente de Gastronomía aplica retroalimentación escrita en cada práctica, pero nota que los estudiantes no la leen y repiten los mismos errores. ¿Qué ajuste en la práctica evaluativa resolvería mejor este problema?",
+  options:[
+    "Entregar la retroalimentación escrita junto con la calificación numérica para que los estudiantes tengan ambos referentes simultáneamente.",
+    "Resumir la retroalimentación en una sola frase clave para que sea más fácil de leer y recordar.",
+    "Entregar primero la retroalimentación sin calificación y pedir que los estudiantes ajusten su preparación antes de recibir la nota.",
+    "Publicar la retroalimentación de forma anónima en el aula para que todos puedan aprender de los errores de sus compañeros."
+  ],correct:2,
+  feedback:"Cuando la retroalimentación se entrega junto con la nota, los estudiantes se centran en la calificación y no procesan los comentarios. Entregarla primero sin nota y requerir un ajuste obliga al estudiante a leer, reflexionar y actuar antes de recibir la calificación, transformando la retroalimentación en insumo formativo real."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"El docente técnico quiere implementar el Aprendizaje Basado en Proyectos (ABP) en su módulo de Desarrollo de Software. Para que el proyecto sea auténtico, ¿cuál condición es más importante?",
-    options:[
-      "Que el proyecto tenga un plazo de entrega real con consecuencias académicas si no se entrega a tiempo.",
-      "Que el proyecto sea evaluado por un experto externo al centro educativo para garantizar objetividad.",
-      "Que el proyecto responda a un problema o necesidad real del entorno, cuya solución tenga valor más allá del aula.",
-      "Que el proyecto integre contenidos de al menos tres unidades del módulo para garantizar su complejidad."
-    ], correct:2,
-    feedback:"El plazo con consecuencias es una condición de gestión, no de autenticidad. La evaluación externa añade valor pero no define la autenticidad del proyecto. Integrar tres unidades garantiza complejidad pero no autenticidad. La autenticidad en el ABP se define por una sola condición: que el problema o necesidad sea real y que la solución tenga valor genuino más allá del contexto escolar —que exista alguien fuera del aula para quien esa solución importe, que es lo que convierte el proyecto en aprendizaje con propósito real."
+
+  // CASO 19
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"Un estudiante del módulo de Refrigeración demuestra conocimientos técnicos informales muy avanzados, adquiridos trabajando con un familiar en el sector. Siempre termina las prácticas antes que sus compañeros y se aburre esperando. ¿Qué estrategia de gestión del aprendizaje es la más pertinente?",
+  options:[
+    "Evaluarlo por equivalencia y eximirlo de las prácticas que ya domina para que optimice su tiempo en el taller.",
+    "Designarlo como asistente permanente del docente durante las prácticas para que ayude a sus compañeros con dificultades.",
+    "Diseñar retos de profundización específicos para él (diagnóstico de fallas complejas, análisis de eficiencia energética) mientras también participa como recurso formativo para el grupo.",
+    "Pedirle que repita las prácticas ya dominadas con mayor velocidad y precisión, aumentando el estándar de calidad técnica exigido."
+  ],correct:2,
+  feedback:"La estrategia correcta combina el diseño de retos genuinamente desafiantes para el estudiante avanzado con su participación ocasional como recurso del grupo, sin convertirlo en asistente permanente. Eximirlo puede dejar lagunas en competencias no formalizadas. El asistente permanente instrumentaliza sus capacidades sin garantizar su propio desarrollo."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente aplica una rúbrica para evaluar el desempeño técnico de sus estudiantes. Al revisar los resultados, nota que todos obtuvieron calificaciones muy altas. Antes de concluir que el módulo fue exitoso, ¿qué debe verificar?",
-    options:[
-      "Que los estudiantes realmente dominan la competencia y que la rúbrica no fue tan sencilla que cualquier desempeño básico pudiera alcanzar el nivel máximo.",
-      "Que las calificaciones son coherentes con las notas que los estudiantes obtienen en las demás asignaturas del grado.",
-      "Que los padres de familia estén satisfechos con las calificaciones y no presenten reclamos al respecto.",
-      "Que el porcentaje de aprobados supera el promedio histórico del módulo para confirmar la efectividad de la estrategia."
-    ], correct:0,
-    feedback:"La coherencia con otras asignaturas no valida la calidad de la evaluación técnica. La satisfacción de padres y los promedios históricos son indicadores externos que no verifican la validez interna del instrumento. La pregunta clave que la docente debe responder es si la rúbrica realmente evalúa la competencia con el nivel de exigencia adecuado —rúbricas con descriptores poco exigentes producen calificaciones altas sin que eso refleje dominio real de la competencia técnica."
+
+  // CASO 20
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"En el módulo de Construcción, el docente organiza trabajo en equipos para un proyecto de levantamiento de paredes. Observa que en todos los grupos hay uno o dos estudiantes que hacen la mayor parte del trabajo mientras los demás observan. ¿Qué estrategia garantizaría una participación más equitativa?",
+  options:[
+    "Asignar la misma calificación a todo el grupo para motivar que los más activos presionen a sus compañeros a involucrarse.",
+    "Reducir el tamaño de los grupos a parejas para facilitar la supervisión y asegurar que ambos participen.",
+    "Asignar roles específicos e interdependientes a cada integrante (medidor, mezclador, albañil, supervisor de calidad), diseñando la tarea de modo que el avance dependa del aporte de todos.",
+    "Dejar que los grupos gestionen internamente la distribución del trabajo e intervenir solo si el producto final no cumple los criterios de calidad."
+  ],correct:2,
+  feedback:"La interdependencia positiva, creada mediante roles específicos e indispensables para cada integrante, es la condición estructural que garantiza la participación equitativa en el aprendizaje cooperativo. La calificación grupal sin roles puede generar que los más activos hagan todo para proteger su nota. Las parejas limitan el desarrollo de habilidades de cooperación en equipos más amplios."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente de Análisis de Sistemas quiere que sus estudiantes aprendan a documentar sistemas siguiendo estándares profesionales. ¿Cuál estrategia desarrolla mejor esta competencia?",
-    options:[
-      "Presentar al grupo ejemplos de documentación técnica profesional y pedir que los analicen y critiquen en detalle.",
-      "Enseñar los estándares de documentación y pedir que practiquen documentando sistemas diseñados por el docente.",
-      "Proporcionar plantillas profesionales de documentación y pedir que las completen durante las prácticas de laboratorio.",
-      "Asignar a cada estudiante la documentación completa de un sistema real de su entorno, usando estándares profesionales con retroalimentación iterativa."
-    ], correct:3,
-    feedback:"Analizar ejemplos desarrolla pensamiento crítico pero no la competencia de documentar. Documentar sistemas diseñados por el docente limita la transferencia. Las plantillas facilitan el proceso pero pueden convertirse en un ejercicio de completar formularios. Solo asignar la documentación de un sistema real con retroalimentación iterativa combina los elementos clave: aplicación en contexto real, estándares profesionales y ciclos de mejora —que es como se desarrolla una competencia técnica profesional."
+
+  // CASO 21
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"La docente de Farmacia aplica una evaluación formativa al finalizar la unidad sobre medicamentos controlados y detecta que el 65% del grupo confunde los procedimientos de dispensación con los de almacenamiento. ¿Cuál es la intervención pedagógica más adecuada?",
+  options:[
+    "Retomar el tema con una explicación más detallada y clara en la siguiente clase, asegurándose de que todos tomen apuntes completos.",
+    "Replantear la estrategia de enseñanza diferenciando visualmente los dos procedimientos con recursos prácticos, y evaluar nuevamente antes de avanzar.",
+    "Asignar una tarea de investigación individual sobre ambos procedimientos para que los estudiantes refuercen el tema de forma autónoma.",
+    "Organizar grupos de estudio donde los estudiantes que sí comprendieron expliquen el tema a sus compañeros antes de la próxima evaluación."
+  ],correct:1,
+  feedback:"Cuando el 65% del grupo no logra el aprendizaje, el problema es metodológico, no de esfuerzo individual. Replantear la estrategia usando recursos visuales diferenciadores y verificar el logro antes de avanzar es la respuesta correcta. Retomar con la misma explicación repite lo que no funcionó. La investigación individual y el aprendizaje entre pares son complementarios pero insuficientes como única respuesta."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"Al finalizar una unidad de Redes, la docente aplica una evaluación sumativa. Tres estudiantes obtienen calificaciones muy bajas. ¿Cuál es la acción pedagógica más pertinente según el enfoque curricular dominicano?",
-    options:[
-      "Informar a los padres de los tres estudiantes y citarlos para acordar un plan de refuerzo desde el hogar.",
-      "Analizar con los tres estudiantes qué resultados no lograron, diseñar actividades de refuerzo focalizadas y dar seguimiento hasta el logro.",
-      "Asignar trabajos adicionales a los tres estudiantes para que mejoren su calificación antes del cierre del período.",
-      "Referir a los tres estudiantes al Departamento de Orientación para evaluar si hay factores emocionales que afecten su rendimiento."
-    ], correct:1,
-    feedback:"Informar a padres es complementario pero no resuelve el problema pedagógico. Los trabajos adicionales sin análisis del error pueden repetir el mismo proceso que no funcionó. La referencia a orientación aplica cuando hay indicios de factores emocionales, no como primera respuesta al bajo rendimiento académico. La acción pedagógica directa del docente es la correcta: analizar conjuntamente qué resultados no se lograron, diseñar actividades específicas para esos resultados y dar seguimiento —que es la responsabilidad pedagógica del docente antes de externalizar."
+
+  // CASO 22
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"El docente de Hotelería implementa una simulación de atención al cliente en recepción. Nota que los estudiantes actúan mecánicamente repitiendo frases memorizadas, sin adaptar su comunicación a distintas situaciones. ¿Qué estrategia desarrolla mejor la competencia de atención al cliente?",
+  options:[
+    "Aumentar el número de ensayos de la simulación con el mismo guión para que los estudiantes dominen las frases correctas hasta internalizarlas.",
+    "Proporcionar un guión más completo con respuestas para cada tipo de situación posible para reducir la improvisación.",
+    "Diseñar simulaciones con situaciones impredecibles y variables (clientes molestos, solicitudes inusuales, emergencias) donde los estudiantes deban adaptar su comunicación sin guión.",
+    "Evaluar la simulación con una rúbrica que incluya criterios de fluidez, vocabulario y postura para que los estudiantes sepan exactamente qué se espera de ellos."
+  ],correct:2,
+  feedback:"La competencia de atención al cliente se desarrolla en situaciones auténticas con incertidumbre real, donde el estudiante debe analizar, decidir y comunicar sin guión predefinido. Las simulaciones con guión desarrollan memorización, no competencia. Más ensayos del mismo guión no resuelven la falta de adaptabilidad. La rúbrica es necesaria pero no sustituye el diseño de situaciones impredecibles."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente usa habitualmente la clase magistral como única estrategia en su módulo técnico. El coordinador le señala que esto es insuficiente para el desarrollo de competencias. ¿Cuál argumento pedagógico es el más sólido para fundamentar esa observación?",
-    options:[
-      "Que las clases magistrales aburren a los estudiantes y reducen su motivación hacia el módulo técnico.",
-      "Que el MINERD establece que cada clase debe incluir al menos tres estrategias didácticas diferentes.",
-      "Que las competencias se desarrollan a través de la actuación del estudiante en situaciones complejas, no principalmente escuchando al docente.",
-      "Que los estudiantes aprenden mejor cuando trabajan en grupos que cuando reciben instrucción individual del docente."
-    ], correct:2,
-    feedback:"La desmotivación es una consecuencia posible pero no el argumento pedagógico central. No existe norma del MINERD que prescriba número de estrategias por clase. El aprendizaje cooperativo es valioso pero no necesariamente superior en todos los contextos. El argumento sólido apunta a la naturaleza de las competencias: no pueden desarrollarse pasivamente, requieren que el estudiante actúe, tome decisiones, resuelva problemas y enfrente situaciones complejas —lo que la clase magistral como única estrategia no puede garantizar."
+
+  // CASO 23
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"El docente de Crianza Animal observa que sus estudiantes saben describir los pasos del manejo sanitario del ganado, pero cuando están frente a los animales reales no aplican lo aprendido correctamente. ¿Qué estrategia evaluativa evidencia mejor si realmente dominan la competencia?",
+  options:[
+    "Un examen escrito con casos donde los estudiantes describan los procedimientos de manejo sanitario paso a paso.",
+    "Una exposición oral donde expliquen los protocolos sanitarios con apoyo de diagramas elaborados durante el módulo.",
+    "Una observación directa con lista de cotejo mientras cada estudiante realiza el manejo sanitario con los animales reales.",
+    "Un portafolio donde recopilen fichas de registro de las prácticas sanitarias realizadas durante el módulo."
+  ],correct:2,
+  feedback:"La competencia técnica de manejo sanitario es una actuación observable, no un conocimiento declarativo. Solo la observación directa durante la ejecución real con los animales evidencia si el estudiante puede hacerlo. El examen escrito y la exposición oral evalúan el saber. El portafolio documenta el proceso pero no verifica la ejecución en el momento."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente de Programación implementa la autoevaluación con sus estudiantes. Al revisar los resultados, nota que la mayoría se sobrevalora sistemáticamente. ¿Cuál es la respuesta pedagógica más adecuada?",
-    options:[
-      "Eliminar la autoevaluación del módulo porque los estudiantes no tienen la madurez para evaluarse objetivamente.",
-      "Reducir el peso de la autoevaluación en la calificación para que no afecte significativamente la nota final.",
-      "Enseñar explícitamente a los estudiantes cómo usar los criterios de la rúbrica para autoevaluarse, con práctica guiada y ejemplos antes de aplicarla.",
-      "Pedir a los estudiantes que justifiquen por escrito cada puntuación que se asignan para que el docente pueda corregir los excesos."
-    ], correct:2,
-    feedback:"Eliminar la autoevaluación priva a los estudiantes de una competencia metacognitiva fundamental. Reducir su peso no resuelve el problema de comprensión. Pedir justificaciones escritas puede generar autoevaluaciones argumentadas pero no necesariamente más precisas. La sobrevaluación sistemática indica que los estudiantes no saben usar los criterios de evaluación —la solución es enseñar esa habilidad: modelar el proceso con ejemplos concretos, practicar con casos antes de autoevaluarse, hasta que los estudiantes internalicen los estándares."
+
+  // CASO 24
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"En el módulo de Diseño de Interiores, la docente quiere desarrollar el Pensamiento Crítico en sus estudiantes. ¿Cuál actividad lo activa de forma más auténtica?",
+  options:[
+    "Mostrar ejemplos de diseños de interiores premiados internacionalmente y pedir que los estudiantes identifiquen los principios de diseño aplicados.",
+    "Pedir que investiguen las tendencias actuales de diseño de interiores y presenten un informe comparativo al grupo.",
+    "Proponer que analicen un espacio real de la comunidad con problemas funcionales y estéticos, cuestionen las decisiones de diseño existentes y propongan rediseños fundamentados.",
+    "Asignar la reproducción de un diseño clásico reconocido, analizando por qué ese diseño se considera un referente del campo."
+  ],correct:2,
+  feedback:"El Pensamiento Crítico se activa cuando el estudiante analiza evidencias, cuestiona supuestos y propone alternativas fundamentadas en un contexto real con problemas genuinos. Identificar principios en ejemplos premiados, investigar tendencias o reproducir un diseño son actividades analíticas o reproductivas, pero no activan el cuestionamiento crítico completo que implica evaluar y proponer."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 6: Liderazgo en el trabajo",
-    text:"La directora propone al docente técnico liderar la actualización del currículo del módulo de Desarrollo de Aplicaciones en el centro. ¿Qué condición es indispensable para que este liderazgo sea efectivo?",
-    options:[
-      "Que el docente tenga más de cinco años de experiencia impartiendo el módulo en ese centro educativo.",
-      "Que el docente conozca profundamente tanto los contenidos técnicos del módulo como el marco curricular del MINERD y el perfil de egreso del técnico.",
-      "Que el docente cuente con el apoyo explícito de la dirección del centro y los recursos necesarios para investigar.",
-      "Que el docente haya participado previamente en procesos de actualización curricular en otros centros del distrito."
-    ], correct:1,
-    feedback:"Los años de experiencia, el apoyo directivo y la experiencia previa en otros centros son condiciones útiles pero no indispensables por sí solas. El liderazgo curricular efectivo requiere el dominio de dos dimensiones simultáneas: el conocimiento técnico profundo del campo (para identificar qué necesita actualizarse) y el dominio del marco curricular institucional (para saber cómo integrarlo correctamente en el diseño curricular del MINERD y el perfil de egreso del técnico)."
+
+  // CASO 25
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"El docente de Topografía implementa trabajo en parejas para prácticas de levantamiento de campo. Tras varias sesiones, observa que las parejas no rinden igual: algunas trabajan de forma muy eficiente y otras se bloquean ante cualquier dificultad. ¿Cómo debería gestionar esta diversidad?",
+  options:[
+    "Reorganizar todas las parejas para que queden equilibradas por nivel de desempeño, asegurando que en cada pareja haya un estudiante fuerte y uno débil.",
+    "Dejar que cada pareja resuelva sus dificultades de forma autónoma, ya que la solución independiente de problemas es parte de la competencia técnica.",
+    "Monitorear el proceso, intervenir con preguntas orientadoras cuando una pareja se bloquea y diseñar desafíos adicionales para las que avanzan rápido.",
+    "Pedir a las parejas más eficientes que demuestren su procedimiento frente al grupo para que las demás aprendan de ellas."
+  ],correct:2,
+  feedback:"El monitoreo activo con intervención orientadora cuando hay bloqueo, y desafíos adicionales para quienes avanzan rápido, atiende la diversidad sin reorganizar el grupo ni crear dependencia. Reorganizar las parejas solo transfiere el desequilibrio. Dejar que se bloqueen sin intervención no es autonomía sino abandono. Las demostraciones públicas pueden inhibir a quienes tienen dificultades."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"En el módulo de Seguridad Informática, la docente quiere desarrollar la competencia de Pensamiento Crítico. ¿Cuál actividad la activa de forma más auténtica?",
-    options:[
-      "Presentar noticias sobre ataques informáticos recientes y pedir a los estudiantes que identifiquen los tipos de vulnerabilidades involucradas.",
-      "Pedir a los estudiantes que investiguen los diez ataques informáticos más comunes y presenten un informe comparativo.",
-      "Proponer que los estudiantes auditen la seguridad de una red real o simulada, identifiquen vulnerabilidades, cuestionen las decisiones de configuración existentes y propongan mejoras fundamentadas.",
-      "Organizar un debate sobre las implicaciones éticas del hacking ético donde los estudiantes defiendan posiciones opuestas."
-    ], correct:2,
-    feedback:"Identificar tipos en noticias es análisis básico, no pensamiento crítico profundo. Investigar e informar sobre ataques desarrolla conocimiento declarativo. El debate ético desarrolla argumentación pero no aplicación técnica. La auditoría de seguridad con análisis de vulnerabilidades y cuestionamiento de decisiones de configuración combina los tres elementos del Pensamiento Crítico: analizar evidencias, cuestionar supuestos y proponer alternativas fundamentadas —en un contexto técnico auténtico."
+
+  // CASO 26
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"La docente de Peluquería y Estética quiere que sus estudiantes desarrollen autonomía en el taller. ¿Cuál secuencia de estrategias la desarrolla de forma más efectiva?",
+  options:[
+    "Dar instrucciones detalladas al inicio de cada práctica para que los estudiantes sepan exactamente qué hacer en cada paso del procedimiento.",
+    "Reducir progresivamente el andamiaje: primero modelar el procedimiento completo, luego guiar con preguntas, luego supervisar a distancia mientras trabajan de forma independiente.",
+    "Permitir que los estudiantes experimenten libremente desde el inicio y solo intervenir cuando cometan errores técnicos graves.",
+    "Evaluar cada práctica con una rúbrica detallada para que los estudiantes puedan autocorregirse mientras trabajan."
+  ],correct:1,
+  feedback:"La reducción progresiva del andamiaje (modelar → guiar → supervisar a distancia) es la secuencia que construye la autonomía de forma gradual y sostenida. Las instrucciones detalladas constantes generan dependencia. La experimentación libre sin andamiaje inicial puede generar errores técnicos que afianzan malos hábitos. La rúbrica es una herramienta útil pero no una estrategia de desarrollo de autonomía."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente organiza un trabajo grupal en el módulo técnico. Al finalizar, varios estudiantes reclaman que su calificación grupal no refleja el trabajo individual que aportaron. ¿Cómo debería haber diseñado la evaluación para evitar este problema?",
-    options:[
-      "Establecer desde el inicio que cada miembro del grupo tendría la misma calificación para motivar la cohesión del equipo.",
-      "Pedir a los estudiantes que se autoevalúen al final del proyecto para ajustar la calificación según su autopercepción.",
-      "Diseñar una evaluación que combine una calificación del producto grupal con la evaluación del desempeño individual de cada integrante durante el proceso.",
-      "Pedir al grupo que vote internamente quién merece la mejor calificación y distribuir las notas según ese consenso."
-    ], correct:2,
-    feedback:"La calificación idéntica es injusta si los aportes fueron desiguales. La autoevaluación al final puede estar sesgada por la motivación de mejorar la nota. La votación interna genera dinámicas de poder y popularidad, no evidencia de competencia. El diseño correcto integra dos dimensiones de evaluación: el producto grupal (que evidencia la calidad del trabajo colaborativo) y el desempeño individual documentado durante el proceso (que evidencia la competencia de cada estudiante) —separando lo que es colectivo de lo que es individual."
+
+  // CASO 27
+  {dim:"Gestión del Aprendizaje",dimClass:"dim-gestion",area:"Área 3: Resultados de aprendizaje de los estudiantes",
+  text:"El docente de Logística implementa el Aprendizaje Basado en Proyectos en su módulo. Diseña un proyecto donde los estudiantes gestionan el inventario de la tienda escolar del centro. Un colega le pregunta qué hace que este proyecto sea auténtico. ¿Cuál es la respuesta más correcta?",
+  options:[
+    "Que el proyecto tiene una fecha de entrega real con consecuencias académicas si no se completa correctamente.",
+    "Que integra contenidos de varias unidades del módulo y requiere la aplicación de múltiples procedimientos técnicos.",
+    "Que responde a una necesidad real de la tienda escolar, cuya solución tiene valor genuino para alguien fuera del aula.",
+    "Que será evaluado por el encargado de la tienda, lo que garantiza objetividad y criterio profesional en la valoración."
+  ],correct:2,
+  feedback:"La autenticidad de un proyecto en el ABP se define por una sola condición: que exista una necesidad real y que la solución tenga valor genuino para alguien fuera del aula. El plazo con consecuencias es gestión. La integración de contenidos garantiza complejidad pero no autenticidad. La evaluación externa añade valor pero no define si el proyecto es auténtico."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 8: Trabajo en equipo",
-    text:"El docente técnico participa en una reunión del claustro donde se discute la baja motivación de los estudiantes del técnico profesional. Tiene información diagnóstica valiosa de su módulo. ¿Cuál aporte al equipo docente es más coherente con el Área 8 de la EDD?",
-    options:[
-      "Compartir sus datos diagnósticos, analizarlos junto al equipo y proponer estrategias colectivas que puedan implementarse en todos los módulos.",
-      "Presentar sus datos y esperar que el coordinador pedagógico decida qué acciones tomar a partir de ellos.",
-      "Compartir sus estrategias exitosas para que cada docente las implemente de forma independiente en su módulo.",
-      "Solicitar al coordinador que organice un taller externo sobre motivación antes de tomar decisiones basadas en los datos."
-    ], correct:0,
-    feedback:"Esperar la decisión del coordinador es pasivo y no refleja trabajo colaborativo. Compartir estrategias para implementación independiente es divulgación, no trabajo en equipo. Solicitar un taller externo pospone la acción y externaliza la solución. El trabajo en equipo efectivo —Área 8— implica compartir los datos como insumo colectivo, analizarlos en conjunto y construir propuestas compartidas que el equipo docente implemente de forma articulada, no independiente."
+
+// ══ COMPORTAMIENTOS PROFESIONALES (28–40) ════════════════
+
+  // CASO 28
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"Un estudiante del módulo técnico envía al docente un mensaje de WhatsApp con una pregunta sobre el procedimiento para la práctica del día siguiente. El docente considera que es una consulta legítima y breve. ¿Cuál es la acción más correcta según el Código de Ética?",
+  options:[
+    "Responder la consulta de forma breve y profesional porque el contenido es académico y el propósito es formativo.",
+    "No responder el mensaje privado e indicarle al estudiante que las consultas académicas deben realizarse en el espacio escolar o en encuentros grupales.",
+    "Responder e incluir en copia a otro docente del módulo para que la comunicación no sea estrictamente privada.",
+    "Responder la consulta y aprovechar para recordarle las normas del taller que deberá seguir durante la práctica."
+  ],correct:1,
+  feedback:"El Art. 10b del Código de Ética prohíbe el uso de herramientas tecnológicas para la interacción individual con estudiantes, independientemente del contenido académico de la consulta. La vía correcta son los espacios escolares o encuentros grupales. Incluir a otro docente en copia no convierte WhatsApp en canal institucional. La respuesta debe ser no responder y orientar al canal correcto."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente técnica detecta que un estudiante tiene conocimientos informales muy avanzados en programación (aprendidos por cuenta propia) que superan los del grupo. ¿Cuál estrategia de gestión del aprendizaje es la más pertinente?",
-    options:[
-      "Permitir que el estudiante avanzado salte las actividades básicas y trabaje directamente en los proyectos finales del módulo.",
-      "Pedir al estudiante que prepare mini-talleres para enseñar al resto del grupo, mientras el docente diseña retos de profundización adicionales para él.",
-      "Evaluar al estudiante por equivalencia y eximirlo de las prácticas de laboratorio que ya domina.",
-      "Organizar al estudiante como monitor permanente del grupo para que el docente pueda atender a los estudiantes con más dificultades."
-    ], correct:1,
-    feedback:"Saltarse actividades básicas puede crear lagunas en competencias que el estudiante no ha formalizado. La equivalencia y exención sin supervisión puede dejar sin documentar competencias que requieren certificación. Convertirlo en monitor permanente lo instrumentaliza sin garantizar su propio desarrollo. La estrategia correcta combina dos acciones: activar su conocimiento como recurso del grupo (mini-talleres) y diseñar retos de profundización específicos para él —garantizando tanto su propio avance como su contribución al aprendizaje colectivo."
+
+  // CASO 29
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
+  text:"El docente técnico de Electricidad observa en el patio que un estudiante de otro módulo está siendo víctima de acoso por parte de compañeros. El docente no conoce a ninguno de los involucrados. ¿Cuál es su obligación según las Normas de Convivencia?",
+  options:[
+    "No intervenir directamente para no exceder sus funciones con estudiantes que no pertenecen a su módulo.",
+    "Intervenir para detener la situación y reportarla al docente responsable del grupo involucrado para que él tome las medidas.",
+    "Reportar la situación inmediatamente al orientador o a la dirección del centro para que los profesionales competentes intervengan.",
+    "Intervenir para detener la situación y reportarla directamente a la Comisión de Ética como primera instancia."
+  ],correct:2,
+  feedback:"El Art. 11 de las Normas de Convivencia obliga a cualquier docente a denunciar ante las autoridades competentes del centro (orientación o dirección) cualquier situación de vulneración de derechos de los estudiantes, independientemente de si son de su módulo. El orientador o la dirección tienen el protocolo y las herramientas especializadas para intervenir. Reportar solo al docente del grupo es insuficiente."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente de Diseño Gráfico Digital aplica evaluación formativa con notas de retroalimentación escrita en cada trabajo. Los estudiantes raramente las leen. ¿Cuál ajuste en la práctica evaluativa resolvería mejor este problema?",
-    options:[
-      "Entregar la retroalimentación escrita junto con la calificación numérica para que los estudiantes tengan ambos referentes al mismo tiempo.",
-      "Entregar primero la retroalimentación sin calificación y pedir que los estudiantes respondan a ella ajustando su trabajo antes de recibir la nota.",
-      "Resumir la retroalimentación en una sola frase clave para que sea más fácil de leer y asimilar por los estudiantes.",
-      "Publicar la retroalimentación de forma anónima en el aula virtual para que los estudiantes puedan aprender de los comentarios de todos."
-    ], correct:1,
-    feedback:"Entregar retroalimentación con nota simultáneamente hace que la nota capture toda la atención, que es exactamente el problema. Resumir en una frase reduce el contenido formativo. La publicación anónima puede ser útil pero no garantiza que el propio estudiante procese su retroalimentación. La práctica de entregar retroalimentación sin nota y requerir una respuesta activa (ajuste del trabajo) es la que obliga al estudiante a leer, procesar y actuar sobre los comentarios antes de recibir la calificación —transformando la retroalimentación en un insumo para mejorar, no en justificación de una nota."
+
+  // CASO 30
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"El docente técnico de Informática lleva tres años sin actualizarse en nuevas tecnologías de programación relevantes para el sector. El coordinador se lo señala en la evaluación anual. ¿Cuál es la implicación normativa directa de esta situación según los Estándares Profesionales del MINERD?",
+  options:[
+    "Que el centro educativo debe gestionar capacitaciones institucionales obligatorias para actualizar al docente en su área técnica.",
+    "Que el docente incumple la obligación personal de formación continua establecida en el Área 7 de los Estándares, lo que afecta la calidad y pertinencia de su enseñanza.",
+    "Que el coordinador debe reportar la situación al Distrito Educativo para que se tomen medidas formales de seguimiento.",
+    "Que el docente debe justificarse ante la Comisión de Ética por el incumplimiento de su deber de actualización técnica."
+  ],correct:1,
+  feedback:"El Área 7 de los Estándares Profesionales establece la formación continua como obligación personal e intransferible del docente, no como responsabilidad del centro. Su incumplimiento afecta directamente la calidad y pertinencia de la enseñanza que reciben los estudiantes. La Comisión de Ética interviene ante faltas tipificadas, no ante ausencia de actualización como primera instancia."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"El docente técnico quiere desarrollar la competencia de Trabajo Colaborativo en su módulo de Bases de Datos. ¿Cuál condición es más importante para que el trabajo grupal desarrolle genuinamente esta competencia?",
-    options:[
-      "Que los grupos sean heterogéneos en nivel académico para que los estudiantes más avanzados apoyen a los demás.",
-      "Que cada miembro tenga un rol definido con responsabilidades claras e interdependientes, de modo que el éxito del grupo dependa de todos.",
-      "Que el proyecto grupal tenga suficiente complejidad técnica para que ningún estudiante pueda completarlo individualmente.",
-      "Que el docente supervise regularmente las reuniones del grupo para asegurarse de que todos participen activamente."
-    ], correct:1,
-    feedback:"Los grupos heterogéneos favorecen el aprendizaje entre pares pero no garantizan colaboración real. La complejidad técnica puede generar dependencia pero no necesariamente colaboración genuina. La supervisión del docente puede detectar problemas pero no crea la condición estructural de la colaboración. La condición clave es la interdependencia positiva: que los roles sean complementarios y que el éxito colectivo dependa realmente del aporte de todos. Sin esta condición, el trabajo en grupo es distribución de tareas, no colaboración."
+
+  // CASO 31
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
+  text:"Una estudiante del módulo técnico le confía al docente que está siendo víctima de violencia doméstica. Le pide que no lo cuente a nadie. ¿Cuál es la obligación legal que prevalece según la Ley 136-03?",
+  options:[
+    "Respetar la confidencialidad de la estudiante porque su confianza debe protegerse como parte de la relación pedagógica.",
+    "Informar solo a los padres de la estudiante porque, al ser menor de edad, ellos tienen el derecho a saberlo.",
+    "Denunciar ante el Ministerio Público o CONANI en un plazo no mayor a 24 horas, independientemente de la solicitud de confidencialidad.",
+    "Informar al orientador del centro para que él active el proceso de denuncia, cumpliendo así con la obligación institucional."
+  ],correct:2,
+  feedback:"El Art. 14 de la Ley 136-03 establece que cualquier persona que tenga conocimiento de violencia contra un menor tiene la obligación personal e intransferible de denunciar directamente ante el Ministerio Público o CONANI en menos de 24 horas. Respetar la confidencialidad viola la ley. Informar a los padres puede agravar la situación. Delegar al orientador transfiere una obligación legal que es del docente."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente imparte el módulo de Programación Web. Un estudiante entrega siempre sus proyectos a tiempo y con código que funciona, pero al interrogarlo en clase demuestra que no comprende lo que escribió. ¿Cuál es la respuesta pedagógica más adecuada?",
-    options:[
-      "Reducir la calificación de los proyectos anteriores una vez comprobado que el estudiante no comprende el código que entregó.",
-      "Aplicar en adelante evaluaciones orales complementarias para verificar la comprensión junto con los proyectos entregados.",
-      "Reportar el caso a la Comisión de Ética como posible plagio o uso de inteligencia artificial sin declarar.",
-      "Asignar al estudiante proyectos adicionales de mayor dificultad para forzar que comprenda lo que hace."
-    ], correct:1,
-    feedback:"Reducir calificaciones retroactivamente es cuestionable normativamente y no resuelve el problema formativo. El reporte a ética puede ser eventual si se confirma deshonestidad, pero no es el primer paso pedagógico. Los proyectos adicionales más difíciles sin comprensión base agravan el problema. La respuesta pedagógica correcta es ajustar la estrategia de evaluación: incorporar evaluaciones orales complementarias que verifiquen la comprensión junto con los productos entregados, garantizando que la evaluación capture la competencia real y no solo el producto final."
+
+  // CASO 32
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"El docente técnico de Mecánica propone a un grupo de cinco estudiantes terminar el proyecto del módulo en su taller personal un sábado, argumentando que tienen los equipos necesarios y que la participación es voluntaria. ¿Por qué esta propuesta viola el Código de Ética incluso bajo esas condiciones?",
+  options:[
+    "Porque el Art. 10b prohíbe usar herramientas tecnológicas para relacionarse individualmente con estudiantes fuera del espacio escolar.",
+    "Porque el Art. 10d prohíbe reunirse con estudiantes fuera del horario y el espacio escolar, sin excepción por el propósito académico ni por la voluntariedad de la participación.",
+    "Porque el Art. 12b prohíbe convocar estudiantes a actividades fuera del centro sin autorización previa del Equipo de Gestión.",
+    "Porque el Art. 13d exige que el docente rinda cuentas de sus acciones dentro del espacio escolar, no fuera de él."
+  ],correct:1,
+  feedback:"El Art. 10d es categórico: ningún docente puede reunirse con estudiantes fuera del horario y el espacio escolar, sin excepción por propósito académico, voluntariedad, tamaño del grupo ni disponibilidad de recursos. Las demás opciones refieren a artículos reales del Código que aplican a otras situaciones distintas a la descrita."
   },
-  {
-    dim:"Gestión del Aprendizaje", dimClass:"dim-gestion",
-    area:"Área 3: Resultados de aprendizaje",
-    text:"La docente de Redes aplica una lista de cotejo para evaluar la configuración de un router. Al revisar, nota que el instrumento no contempla el criterio de documentación de la configuración realizada. ¿Cuál es la acción más apropiada?",
-    options:[
-      "Aplicar la lista de cotejo tal como está y evaluar la documentación en la próxima práctica con un instrumento nuevo.",
-      "Agregar el criterio de documentación a la lista de cotejo actual antes de aplicarla y comunicar el cambio a los estudiantes.",
-      "Solicitar la documentación de forma verbal al final de la práctica y agregarla como criterio en la próxima planificación.",
-      "Evaluar la documentación por separado con una nota adicional que se promedié con la calificación de la lista de cotejo."
-    ], correct:1,
-    feedback:"Aplicar el instrumento incompleto genera una evaluación que no recoge toda la evidencia del resultado de aprendizaje. Solicitar documentación verbalmente sin criterio explícito vulnera la transparencia evaluativa. Crear una nota adicional por separado fragmenta la evaluación sin coherencia. Agregar el criterio antes de aplicar el instrumento —comunicándolo claramente a los estudiantes— es la única acción que respeta el principio de transparencia evaluativa (los criterios deben ser conocidos antes de la evaluación) y garantiza que el instrumento recoja toda la evidencia necesaria."
+
+  // CASO 33
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"Al cierre del año, el docente técnico de Refrigeración considera que no tiene nada relevante que reportar en la sesión de Rendición de Cuentas sobre lineamientos éticos porque no hubo incidentes disciplinarios en su módulo. ¿Es correcta esta postura?",
+  options:[
+    "Sí, porque la Rendición de Cuentas ética solo es relevante cuando hubo faltas o situaciones disciplinarias que reportar.",
+    "Sí, porque si no hubo incidentes, el docente ha cumplido plenamente con el Código de Ética y no hay nada que rendir.",
+    "No, porque la Rendición de Cuentas incluye evidenciar las buenas prácticas éticas implementadas, los aprendizajes del año y las áreas de mejora continua.",
+    "No, pero puede delegar su participación en el coordinador si considera que no tiene aportes significativos que presentar."
+  ],correct:2,
+  feedback:"El Art. 13h establece que todos los docentes deben rendir cuentas al finalizar el año de su aplicación y compromiso con los lineamientos éticos. Esto incluye las buenas prácticas implementadas, los aprendizajes del año y las áreas de mejora continua, que siempre existen. La Rendición de Cuentas ética no es sinónimo del régimen disciplinario ni puede delegarse."
   },
-  // ══ COMPORTAMIENTOS PROFESIONALES (35-50) ════════════
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"La docente Fernanda recibe a través de la plataforma Classroom del centro un mensaje privado de un estudiante que le cuenta un problema personal delicado. ¿Cuál es la respuesta éticamente correcta según el Código de Ética?",
-    options:[
-      "Responder con empatía en la misma plataforma porque es un canal institucional, no personal, y el propósito es de apoyo.",
-      "No responder por escrito; llamar al estudiante aparte en la próxima clase para escucharle de forma presencial.",
-      "Responder brevemente, expresar apoyo y orientarlo a consultar con el orientador del centro, sin profundizar en el contenido personal.",
-      "Reenviar el mensaje al orientador sin responder al estudiante para que el profesional competente tome el caso."
-    ], correct:2,
-    feedback:"Responder con detalle en cualquier plataforma sobre temas personales delicados excede el rol del docente aunque sea canal institucional. Llamarlo aparte puede crear una conversación privada extensa que el Art. 10c no recomienda. Reenviar sin responder deja al estudiante sin ninguna señal de haber sido escuchado. La respuesta correcta equilibra el Art. 10c (acompañamiento concreto en beneficio del bienestar) con el rol de orientación: acuse de recibo breve, expresión de apoyo y referencia inmediata al profesional competente."
+
+  // CASO 34
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
+  text:"El docente técnico de Construcción nota que un colega del mismo departamento tiene dificultades para manejar la disciplina en el taller y los estudiantes están generando situaciones de riesgo. ¿Cuál es la respuesta profesional más adecuada según el Código de Ética?",
+  options:[
+    "Informar a la dirección del centro para que tome las medidas correctivas necesarias con el colega.",
+    "Acercarse al colega de forma privada, ofrecerle apoyo y compartir estrategias de gestión del taller de manera colaborativa.",
+    "Comentarlo con otros colegas del departamento para buscar colectivamente una solución al problema.",
+    "Esperar que el colega solicite ayuda por sí mismo para no interferir en su autonomía pedagógica."
+  ],correct:1,
+  feedback:"Los valores de Cooperación, Solidaridad y Discreción del Código orientan a la acción directa y privada entre colegas: ofrecer apoyo primero, antes de escalar. Informar a la dirección como primera acción es desproporcionado para un problema que puede resolverse colegialmente. Comentarlo con otros viola la discreción y puede generar rumores. Esperar puede prolongar situaciones de riesgo en el taller."
   },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"Un padre de familia que es técnico en informática solicita participar en la clase de Programación de su hijo para aportar su experiencia profesional. El docente considera la idea. ¿Cuál condición es indispensable según el Código de Ética antes de aceptar?",
-    options:[
-      "Que el director del centro autorice la participación por escrito antes de que el padre ingrese al aula.",
-      "Que la participación tenga una finalidad formativa clara, sea autorizada por el Equipo de Gestión y forme parte de una actividad planificada.",
-      "Que el padre se comprometa a no evaluar a los estudiantes ni emitir juicios sobre el desempeño de su hijo.",
-      "Que los demás padres del grupo sean informados previamente para garantizar igualdad de oportunidades de participación."
-    ], correct:1,
-    feedback:"La autorización del director es parte del proceso pero no la condición completa. Que el padre no evalúe es una precaución válida pero no la condición normativa principal. Informar a los demás padres es deseable pero no un requisito para esta participación. El Art. 12a del Código de Ética establece que cualquier actividad con personas externas al plantel requiere finalidad formativa, autorización del Equipo de Gestión y que sea parte de una actividad planificada —las tres condiciones deben cumplirse simultáneamente."
+
+  // CASO 35
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"La docente del módulo de Cosmetología imparte una clase virtual desde su cuarto con ropa informal y sin buena iluminación. Una estudiante le comenta que no puede ver bien la demostración del procedimiento. ¿Qué lineamiento del Código de Ética se está incumpliendo?",
+  options:[
+    "El Art. 11a, que exige que el trato hacia los estudiantes sea respetuoso de su dignidad y sus derechos de aprendizaje.",
+    "El Art. 13c, que establece la obligación de vestir formalmente y estar en un lugar apropiado para los fines educativos en los encuentros virtuales.",
+    "El Art. 14a, que prohíbe acciones que puedan afectar el bienestar y el aprendizaje de los estudiantes.",
+    "El Art. 8, que establece que los postulados éticos aplican en todos los espacios de interacción, incluyendo los virtuales."
+  ],correct:1,
+  feedback:"El Art. 13c establece dos condiciones simultáneas para los encuentros virtuales: vestir formalmente y estar en un lugar apropiado para los fines educativos. Incumplir cualquiera de las dos es una infracción directa a este artículo. Los otros artículos mencionados son principios generales o normas de trato que aplican en situaciones distintas a la descrita."
   },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
-    text:"La docente Cecilia observa que un colega del mismo departamento tiene dificultades para manejar la disciplina en su aula y los estudiantes están afectando el aprendizaje. ¿Cuál es la respuesta profesional más adecuada según los valores del Código de Ética?",
-    options:[
-      "Informar a la dirección sobre la situación para que tome las medidas correctivas necesarias con el colega.",
-      "Comentarlo con otros colegas del departamento para encontrar una solución colectiva al problema.",
-      "Acercarse al colega de forma privada, ofrecerle apoyo y compartir estrategias de gestión del aula de manera colaborativa.",
-      "Esperar que el colega solicite ayuda por sí mismo para no interferir en su autonomía pedagógica."
-    ], correct:2,
-    feedback:"Informar a la dirección como primera acción es desproporcionado cuando el problema puede resolverse colegialmente. Comentarlo con otros sin hablar directamente con el afectado viola la discreción y puede generar rumores. Esperar a que pida ayuda puede prolongar innecesariamente el daño a los estudiantes. Los valores de Cooperación, Solidaridad y Discreción del Código de Ética orientan a la acción directa y privada entre colegas: ofrecer apoyo primero, antes de escalar, respetando la dignidad del colega y actuando en beneficio de los estudiantes."
+
+  // CASO 36
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
+  text:"El docente técnico de Electricidad nota que un estudiante que siempre participaba activamente en las prácticas ha dejado de hacerlo y parece desconcentrado y triste. No ha revelado ningún problema. ¿Cuál es la acción más apropiada según el Código de Ética?",
+  options:[
+    "Observar la situación durante más tiempo antes de actuar para no invadir la privacidad del estudiante sin causa confirmada.",
+    "Reportarlo directamente al orientador sin hablar con el estudiante, para que el profesional competente lo aborde desde el inicio.",
+    "Buscar un momento privado y discreto para preguntarle cómo está y, si hay una situación que lo afecta, orientarlo al servicio de orientación.",
+    "Preguntarle frente al grupo si le pasa algo para que los compañeros también puedan apoyarlo en un ambiente de confianza."
+  ],correct:2,
+  feedback:"El Art. 10c del Código orienta al docente a un acompañamiento concreto en beneficio del bienestar del estudiante: el contacto privado y discreto es el primer paso, seguido de la referencia al orientador si la situación lo requiere. Esperar más tiempo puede dejar al estudiante sin apoyo oportuno. Preguntar frente al grupo viola su privacidad. Reportar sin ningún contacto previo puede resultar en una intervención percibida como invasiva."
   },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"El docente técnico quiere crear un grupo de WhatsApp con sus estudiantes para compartir recursos del módulo. Antes de crearlo, ¿qué debe considerar según el Código de Ética?",
-    options:[
-      "Que el grupo sea solo para compartir archivos y que esté configurado para que solo el docente pueda publicar.",
-      "Que el grupo incluya al coordinador pedagógico como miembro para garantizar supervisión institucional.",
-      "Que WhatsApp es una plataforma personal, no institucional, y que la interacción digital con estudiantes debe realizarse a través de las plataformas institucionales del centro y en encuentros grupales.",
-      "Que los padres de los estudiantes menores de edad sean añadidos al grupo para garantizar transparencia en la comunicación."
-    ], correct:2,
-    feedback:"Configurar restricciones de publicación o añadir al coordinador no convierte WhatsApp en un canal institucional apropiado. Incluir a los padres tampoco resuelve el problema de fondo. El Código de Ética (Art. 10b) establece que el uso de herramientas tecnológicas en la interacción con estudiantes debe tener finalidad exclusivamente formativa y realizarse en el marco de encuentros grupales —a través de plataformas institucionales del centro, no a través de aplicaciones de mensajería personal del docente."
+
+  // CASO 37
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"La directora le pide al docente técnico de Mecatrónica que asuma el módulo de Electrónica Industrial porque no hay quien lo cubra, aunque no es su especialidad. ¿Cuál es la postura ética más adecuada?",
+  options:[
+    "Aceptar sin condiciones porque el principio de lealtad institucional obliga a cumplir lo que la dirección solicita.",
+    "Negarse porque el Código de Ética prohíbe expresamente impartir módulos fuera del área de formación del docente.",
+    "Expresar sus limitaciones en esa área, proponer condiciones de apoyo o capacitación y, si acepta, comprometerse a prepararse adecuadamente.",
+    "Aceptar provisionalmente y notificar al Distrito Educativo para que envíe un docente especializado lo antes posible."
+  ],correct:2,
+  feedback:"La postura correcta combina honestidad (declarar las limitaciones), responsabilidad (proponer condiciones de apoyo) y compromiso (prepararse adecuadamente si acepta). El Código no prohíbe taxativamente la asignación fuera de especialidad en emergencias. Aceptar sin condiciones puede comprometer la calidad del aprendizaje. Notificar al Distrito puede ser complementario pero no es la postura ética principal."
   },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
-    text:"Un estudiante llega al aula visiblemente alterado y con señales de haber llorado. El docente debe iniciar la clase. ¿Cuál es la respuesta que mejor equilibra el bienestar del estudiante con las obligaciones del docente según el Código de Ética?",
-    options:[
-      "Iniciar la clase normalmente y acercarse al estudiante al final para preguntarle cómo está en privado.",
-      "Detener la clase completa para atender al estudiante frente al grupo y mostrar empatía colectiva.",
-      "Permitir que el estudiante esté presente sin participar, y en el primer momento disponible orientarlo discretamente al orientador.",
-      "Llamar inmediatamente a los padres del estudiante para informarles de su estado antes de continuar con la clase."
-    ], correct:2,
-    feedback:"Acercarse solo al final puede ser demasiado tarde si el estudiante necesita atención. Detener la clase para atenderle frente al grupo viola su privacidad y puede agravarlo. Llamar a los padres inmediatamente sin evaluar primero la situación puede ser desproporcionado. El Código de Ética orienta a proteger el bienestar sin interrumpir innecesariamente el proceso educativo de los demás: permitir la presencia respetuosa del estudiante y orientarlo discretamente al profesional competente (orientador) en el primer momento apropiado es el equilibrio correcto."
+
+  // CASO 38
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"El docente de Diseño de Interiores asiste a un congreso de tecnología creativa y aprende sobre nuevas herramientas digitales relevantes para el módulo. Al regresar, ¿cuál es la gestión profesional más adecuada para que ese aprendizaje tenga impacto institucional?",
+  options:[
+    "Actualizar su planificación personal incorporando las nuevas herramientas en sus clases.",
+    "Compartir en el chat del departamento los recursos y presentaciones del congreso para que cada colega los use si lo considera pertinente.",
+    "Documentar lo aprendido, proponer en una reunión del claustro las innovaciones pertinentes y gestionar una sesión de socialización con los colegas.",
+    "Publicar en las redes sociales del centro las novedades conocidas para que toda la comunidad educativa se entere."
+  ],correct:2,
+  feedback:"La gestión que transforma el aprendizaje individual en desarrollo institucional implica documentar, proponer formalmente e impulsar una sesión de socialización para el equipo docente. Esto combina el Área 7 (Formación Continua) con el Área 8 (Trabajo en Equipo) de la EDD. Actualizar solo la planificación personal beneficia únicamente al propio módulo. Compartir en el chat es informal y de bajo impacto. Las redes sociales son comunicación externa, no gestión pedagógica interna."
   },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"La Comisión de Ética del centro recibe una denuncia contra el docente técnico por presunto trato irrespetuoso hacia estudiantes. El docente es convocado a comparecer. ¿Cuál es la postura ética correcta del docente según el Código de Ética?",
-    options:[
-      "Presentarse a la Comisión con un representante legal para garantizar la protección de sus derechos durante el proceso.",
-      "Comparecer ante la Comisión, responder con transparencia y honestidad, y aportar las evidencias que considere pertinentes para su defensa.",
-      "Solicitar que el proceso sea manejado directamente por el Distrito Educativo para garantizar imparcialidad.",
-      "Presentarse a la Comisión únicamente si la denuncia fue presentada por escrito y con la firma del denunciante."
-    ], correct:1,
-    feedback:"El representante legal puede añadirse pero no es la postura ética central. Solicitar que el Distrito maneje el caso directamente intenta evitar el proceso institucional establecido. Condicionar la comparecencia a la firma del denunciante viola los derechos del denunciante anónimo que el Art. 40 protege. El Código de Ética (Art. 49) establece que el denunciado debe responder ante la Comisión dentro del plazo establecido. La postura ética correcta es comparecer, responder con Transparencia y Verdad —dos valores del Código— y aportar evidencias, confiando en el proceso institucional."
+
+  // CASO 39
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
+  text:"El docente técnico de Carpintería comparte regularmente sus problemas personales y laborales con una estudiante de su módulo que le inspira confianza. ¿Cuál artículo del Código de Ética se vulnera directamente con esta conducta?",
+  options:[
+    "El Art. 11a, que exige que el trato sea respetuoso de la dignidad y los derechos del estudiante.",
+    "El Art. 14a, que prohíbe acciones que puedan afectar el bienestar emocional del estudiante.",
+    "El Art. 10a, que establece que la relación docente-estudiante debe ser exclusivamente académica y de servicio al proceso formativo.",
+    "El Art. 13h, que obliga al docente a rendir cuentas de sus acciones dentro del espacio escolar."
+  ],correct:2,
+  feedback:"El Art. 10a define con precisión la naturaleza de la relación docente-estudiante: académica y de servicio al proceso formativo. Compartir problemas personales invierte los roles, convirtiendo al estudiante en soporte emocional del adulto, lo que viola exactamente esa definición. Los otros artículos mencionados aplican a situaciones distintas: trato irrespetuoso, violencia, o rendición de cuentas institucional."
   },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"El docente técnico observa en el patio que un grupo de estudiantes de otro módulo está siendo víctima de acoso escolar por parte de compañeros. El docente no conoce a ninguno de los involucrados. ¿Cuál es su obligación según las Normas de Convivencia?",
-    options:[
-      "Intervenir para detener la situación y reportarla al docente responsable del grupo involucrado.",
-      "Reportarlo inmediatamente al orientador o dirección del centro para que los profesionales competentes intervengan.",
-      "No intervenir directamente para no exceder sus funciones con estudiantes que no son de su módulo, y reportarlo al final de la jornada.",
-      "Intervenir para detener la situación y reportarla directamente a la Comisión de Ética del centro en ese momento."
-    ], correct:1,
-    feedback:"Intervenir para detener y reportar al docente del grupo es útil pero incompleto: el acoso requiere seguimiento profesional especializado. Esperar al final de la jornada ante una situación activa de acoso es omisión. Reportar directamente a la Comisión de Ética sin pasar por orientación o dirección salta el protocolo. El Art. 11 de las Normas de Convivencia establece la obligación de denunciar ante las autoridades competentes del centro (orientación/dirección) cualquier situación de vulneración de derechos, independientemente de si los estudiantes pertenecen al módulo del docente."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 7: Formación continua",
-    text:"El docente técnico asiste a un congreso internacional de tecnología educativa por iniciativa propia y con recursos personales. ¿Cómo debe gestionar profesionalmente este aprendizaje para que tenga impacto institucional?",
-    options:[
-      "Compartir en el grupo de WhatsApp del departamento los recursos y presentaciones que obtuvo en el congreso.",
-      "Documentar lo aprendido, proponer formalmente en una reunión del claustro la implementación de las innovaciones pertinentes y gestionar una sesión de socialización con colegas.",
-      "Actualizar su planificación personal del módulo incorporando los nuevos enfoques aprendidos en el congreso.",
-      "Publicar en las redes sociales del centro las innovaciones conocidas para que toda la comunidad educativa se entere."
-    ], correct:1,
-    feedback:"Compartir en WhatsApp es informal y de bajo impacto institucional. Actualizar solo la planificación personal beneficia exclusivamente su propio módulo. Las redes sociales del centro son para comunicación externa, no para gestión pedagógica interna. Documentar formalmente, proponer en claustro e impulsar una sesión de socialización es la gestión que transforma el aprendizaje individual en desarrollo institucional —que es lo que el Área 7 (Formación Continua) y el Área 8 (Trabajo en Equipo) valoran conjuntamente en la EDD."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
-    text:"Dos estudiantes del módulo técnico tienen un conflicto personal que está afectando el ambiente de trabajo en el laboratorio. El docente intenta mediar pero uno de los estudiantes rechaza hablar. ¿Cuál es el siguiente paso según las Normas de Convivencia?",
-    options:[
-      "Aplicar directamente una medida disciplinaria al estudiante que se niega a participar en el proceso de mediación.",
-      "Informar la situación al Equipo de Mediación del centro para que intervenga con las herramientas especializadas.",
-      "Separar a los estudiantes en grupos distintos para evitar el conflicto y proteger el ambiente de trabajo del laboratorio.",
-      "Esperar a que el estudiante renuente cambie de actitud y esté dispuesto a participar en la mediación voluntariamente."
-    ], correct:1,
-    feedback:"Aplicar sanción por no querer mediar confunde la mediación (voluntaria) con una obligación coercitiva. Separar a los estudiantes gestiona el síntoma pero no el conflicto. Esperar indefinidamente prolonga el daño al ambiente de aprendizaje. Las Normas de Convivencia (Art. 32-34) establecen que si la mediación directa del docente no funciona, el caso debe pasar al Equipo de Mediación del centro —que tiene las herramientas y el mandato institucional para manejar conflictos que el docente no puede resolver por sí mismo."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"La dirección del centro le comunica al docente técnico que tiene que ceder dos semanas de su módulo para que los estudiantes practiquen para las pruebas nacionales de otra asignatura. ¿Cuál es la postura más adecuada del docente?",
-    options:[
-      "Aceptar sin cuestionamiento porque la dirección tiene autoridad sobre la organización del tiempo escolar.",
-      "Negarse porque la reducción del tiempo afecta los resultados de aprendizaje del módulo y los derechos de los estudiantes.",
-      "Expresar por escrito a la dirección la implicación pedagógica de la reducción para los resultados del módulo y proponer alternativas que atiendan ambas necesidades.",
-      "Aceptar una semana y negociar la otra, llegando a un compromiso que minimice el impacto en ambas partes."
-    ], correct:2,
-    feedback:"Aceptar sin cuestionar puede vulnerar los derechos de los estudiantes a recibir el módulo completo. Negarse directamente es confrontacional y no reconoce la autoridad institucional. Negociar una semana sí/una no resuelve el síntoma pero no aborda la causa pedagógica. La postura ética competente combina el respeto a la autoridad institucional con la responsabilidad pedagógica: comunicar formalmente y por escrito las implicaciones sobre los resultados de aprendizaje y los derechos del estudiantado, y proponer alternativas que satisfagan ambas necesidades —esto documenta la postura del docente y obliga a la dirección a tomar la decisión con información."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
-    text:"Un estudiante del técnico profesional le pide al docente que le firme una carta de recomendación para un empleo en tecnología. El docente lo conoce bien académicamente. ¿Qué debe considerar según el Código de Ética antes de firmarla?",
-    options:[
-      "Que la carta debe ser firmada solo si el director del centro lo autoriza, ya que representa institucionalmente al centro.",
-      "Que puede firmarla a título personal si es honesta y refleja el desempeño real del estudiante, sin comprometer a la institución.",
-      "Que no puede firmar cartas de recomendación porque eso constituye una forma de relación personal prohibida por el Código de Ética.",
-      "Que debe consultar con la Comisión de Ética antes de firmar para evitar que pueda interpretarse como un acto de favoritismo."
-    ], correct:1,
-    feedback:"La autorización del director es necesaria si la carta involucra al centro como institución. Consultar a la Comisión de Ética es desproporcionado para este caso. Prohibir toda carta de recomendación extiende más allá de lo que el Código prescribe —que regula la naturaleza de la relación, no los actos profesionales legítimos. Una carta de recomendación honesta y basada en el desempeño real es un acto profesional legítimo que el docente puede realizar a título personal, reflejando la competencia observada, sin vincular a la institución ni crear relación de favoritismo."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"La docente técnica sabe que un colega del departamento presentó una planificación falsa al coordinador porque no tuvo tiempo de hacerla. ¿Cuál es la postura ética correcta según el Código de Ética?",
-    options:[
-      "Hablar directamente con el colega en privado para advertirle que lo que hizo tiene consecuencias disciplinarias graves.",
-      "No intervenir porque el asunto es entre el colega y el coordinador, y no corresponde a su rol involucrarse.",
-      "Reportar el hecho a la Comisión de Ética porque la elaboración de expedientes falsos está tipificada como falta en el Código.",
-      "Hablar con el colega primero y, si no corrige la situación, reportarlo al coordinador pedagógico."
-    ], correct:2,
-    feedback:"Advertir al colega en privado puede ser un gesto humano pero no resuelve la falsedad ya cometida. No intervenir es omisión ante una falta clara. Reportar al coordinador en lugar de a la Comisión de Ética no es el canal correcto según el Código. El Art. 20e del Código de Ética tipifica la elaboración de expedientes falsos como causa de suspensión, y el Art. 23 como asunto que puede llegar a tribunales si se comprueba. La Comisión de Ética es el órgano competente para recibir y tramitar este tipo de denuncia según el Art. 31 del Código."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 6: Liderazgo en el trabajo",
-    text:"El director le pide al docente técnico que represente al centro en una jornada regional de actualización curricular del MINERD. ¿Cuál es la responsabilidad del docente al regresar de esa jornada?",
-    options:[
-      "Implementar en su planificación personal los cambios curriculares discutidos en la jornada.",
-      "Entregar al director un informe escrito con los temas tratados para que él decida qué acciones tomar a nivel institucional.",
-      "Socializar con el equipo docente lo aprendido en la jornada, liderar la discusión sobre su aplicación en el centro y apoyar la implementación colectiva.",
-      "Notificar a los colegas interesados sobre los cambios curriculares para que cada uno los adopte según su criterio."
-    ], correct:2,
-    feedback:"Implementar solo en su planificación personal no cumple la función de representación institucional. Entregar un informe al director traslada la responsabilidad sin liderazgo real. Notificar a interesados es informativo pero no liderazgo. Cuando un docente representa al centro en una jornada institucional, su responsabilidad incluye socializar con el equipo completo, liderar la discusión sobre la aplicación local y apoyar la implementación —que es exactamente la función del liderazgo pedagógico (Área 6) en su dimensión de transferencia del aprendizaje profesional al colectivo docente."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"Un estudiante del módulo técnico le muestra al docente un video en su celular de otro estudiante siendo golpeado en el patio por compañeros. El video fue grabado ayer. ¿Cuál es la obligación inmediata del docente?",
-    options:[
-      "Ver el video, identificar a los involucrados y citar a los agresores para una conversación antes de reportarlo.",
-      "Reportar la situación de inmediato a la dirección o al orientador del centro y asegurarse de que el estudiante afectado sea atendido.",
-      "Solicitar al estudiante que envíe el video al director del centro directamente para que este tome las acciones correspondientes.",
-      "Revisar primero si el estudiante agredido ya fue atendido antes de reportar, para no alarmar innecesariamente."
-    ], correct:1,
-    feedback:"Citar a los agresores antes de reportar puede alertarles y dificultar la investigación. Solicitar que el estudiante envíe el video al director transfiere la responsabilidad del adulto al menor. Verificar si ya fue atendido antes de reportar puede retrasar la intervención institucional necesaria. El Art. 11 de las Normas de Convivencia y la Ley 136-03 establecen que el docente tiene obligación de denunciar inmediatamente ante las autoridades competentes del centro cualquier situación de violencia, sin pasos intermedios que dilaten la protección del estudiante afectado."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"Al cierre del año escolar, el docente técnico debe participar en la sesión de Rendición de Cuentas sobre los lineamientos éticos. Considera que no tiene nada relevante que reportar porque no tuvo incidentes durante el año. ¿Es correcta esta postura?",
-    options:[
-      "Sí, porque la Rendición de Cuentas solo tiene sentido cuando hubo faltas o incidentes que comunicar al Equipo de Gestión.",
-      "No, porque la Rendición de Cuentas incluye el reporte positivo de las prácticas éticas implementadas, los aprendizajes del año y las áreas de mejora continua.",
-      "Sí, porque si no hubo incidentes el docente ha cumplido plenamente con el Código de Ética y no hay nada que rendir.",
-      "No, pero puede delegar su participación en el coordinador pedagógico si considera que no tiene aportes significativos."
-    ], correct:1,
-    feedback:"La Rendición de Cuentas no es solo para reportar incidentes o faltas —esa interpretación confunde rendición de cuentas ética con régimen disciplinario. Tampoco puede delegarse. El Art. 13h del Código de Ética establece que todos los docentes deben rendir cuentas al finalizar el año de 'la aplicación y compromiso con los lineamientos éticos'. Esto incluye evidenciar las buenas prácticas implementadas, los aprendizajes del año en materia ética y las áreas donde el docente identifica oportunidades de mejora —que siempre existen, independientemente de si hubo incidentes formales."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 5: Relaciones con estudiantes, colegas y comunidad",
-    text:"El docente técnico descubre que un estudiante de su módulo publica en sus redes sociales comentarios despectivos sobre otro compañero del centro. Los comentarios son fuera del horario escolar y no involucran al docente. ¿Cuál es la obligación del docente según las Normas de Convivencia?",
-    options:[
-      "No intervenir porque ocurre fuera del horario escolar y las redes sociales personales no son competencia del centro educativo.",
-      "Hablar con el estudiante agresor en privado para pedirle que elimine los comentarios antes de reportarlo.",
-      "Reportar la situación a la Comisión de Ética o al orientador del centro, ya que el acoso cibernético entre estudiantes es competencia del sistema educativo.",
-      "Informar a los padres del agresor directamente para que resuelvan la situación desde el hogar sin involucrar al centro."
-    ], correct:2,
-    feedback:"Las Normas de Convivencia (Art. 5d y Art. 19e) definen el maltrato cometido a través de medios tecnológicos o cibernéticos como conducta dentro del alcance normativo educativo, independientemente de si ocurre fuera del horario escolar. El Art. 11 establece la obligación de denunciar. Hablar primero con el agresor puede alertarle para eliminar evidencias. Informar a los padres sin reportar institucionalmente salta el protocolo. La Comisión de Ética o el orientador son los canales correctos para que el centro intervenga en situaciones de ciberacoso entre estudiantes."
-  },
-  {
-    dim:"Comportamientos Profesionales", dimClass:"dim-profesional",
-    area:"Área 4: Cumplimiento de normas institucionales",
-    text:"Durante una actividad de laboratorio, un estudiante sufre una pequeña herida al manipular equipo técnico. El docente le brinda atención inmediata de primeros auxilios. ¿Cuál debe ser el siguiente paso del docente según las obligaciones institucionales?",
-    options:[
-      "Llamar a los padres del estudiante inmediatamente para informarles del accidente y pedir que vengan a recogerlo.",
-      "Reportar el incidente al director del centro, documentarlo en el registro correspondiente y asegurarse de que el estudiante reciba atención médica si es necesario.",
-      "Continuar la clase una vez atendida la herida, ya que fue menor, y reportarlo al finalizar la jornada en el libro de novedades.",
-      "Suspender la práctica de laboratorio para el resto del grupo hasta evaluar las condiciones de seguridad del equipo."
-    ], correct:1,
-    feedback:"Llamar a los padres primero puede ser apropiado pero no es la acción institucional principal. Continuar la clase sin reporte inmediato puede omitir documentación necesaria. Suspender la práctica para todo el grupo puede ser desproporcionado si la herida fue menor y no hay riesgo colectivo. El Art. 13d del Código de Ética establece la obligación de rendir cuentas de las acciones dentro del espacio escolar: reportar al director, documentar el incidente y asegurar atención médica si se requiere son las tres acciones institucionales que protegen al estudiante y al docente, y que deben realizarse aunque la herida sea leve."
+
+  // CASO 40
+  {dim:"Comportamientos Profesionales",dimClass:"dim-profesional",area:"Área 4: Cumplimiento de normas institucionales",
+  text:"El coordinador pedagógico sugiere al docente técnico de Soldadura que le ceda dos semanas de su módulo para que los estudiantes practiquen para las pruebas nacionales de otra asignatura. ¿Cuál es la postura más adecuada del docente?",
+  options:[
+    "Aceptar sin cuestionamiento porque el coordinador tiene autoridad sobre la organización del tiempo escolar.",
+    "Negarse directamente porque la reducción del tiempo afecta los resultados de aprendizaje y los derechos de los estudiantes.",
+    "Expresar por escrito al coordinador las implicaciones pedagógicas de la reducción para los resultados del módulo y proponer alternativas que atiendan ambas necesidades.",
+    "Aceptar una semana y negociar la otra como compromiso que minimice el impacto en las dos partes."
+  ],correct:2,
+  feedback:"La postura correcta combina respeto a la autoridad institucional con responsabilidad pedagógica: comunicar formalmente y por escrito las implicaciones sobre los resultados de aprendizaje y los derechos del estudiantado, y proponer alternativas. Esto documenta la postura del docente y obliga a tomar la decisión con información. Aceptar sin cuestionar puede vulnerar los derechos de los estudiantes. Negarse directamente es confrontacional."
   }
+
 ];
 
 /* =========================================================
@@ -988,8 +875,9 @@ let answers   = [];
 
 // ── CRONÓMETRO ──────────────────────────────────────────
 let timerInterval = null;
-let timerSeconds  = 0;
+let timerSeconds  = 3600;   // cuenta regresiva desde 1 hora
 let timerFinalStr = '00:00:00';
+const TIMER_TOTAL = 3600;   // 60 minutos
 
 function timerFormat(s) {
   const h = Math.floor(s / 3600);
@@ -998,38 +886,56 @@ function timerFormat(s) {
   return [h, m, sec].map(v => String(v).padStart(2, '0')).join(':');
 }
 function timerStart() {
-  timerSeconds = 0;
+  timerSeconds = TIMER_TOTAL;
   clearInterval(timerInterval);
   const display = document.getElementById('timer-display');
   const dot     = document.getElementById('timer-dot');
-  display.className = 'timer-display running';
-  dot.className     = 'timer-dot';
-  display.textContent = '00:00:00';
+  display.className   = 'timer-display running';
+  dot.className       = 'timer-dot';
+  display.textContent = timerFormat(timerSeconds);
   timerInterval = setInterval(() => {
-    timerSeconds++;
+    timerSeconds--;
+    const display = document.getElementById('timer-display');
+    const dot     = document.getElementById('timer-dot');
+    // Alerta visual cuando quedan 5 minutos o menos
+    if (timerSeconds <= 300) {
+      display.className = 'timer-display urgent';
+      dot.className     = 'timer-dot urgent';
+    }
     display.textContent = timerFormat(timerSeconds);
+    // Tiempo agotado: guardar tiempo usado y mostrar resultados
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerFinalStr = '01:00:00 (tiempo agotado)';
+      display.textContent = '00:00:00';
+      display.className   = 'timer-display stopped';
+      dot.className       = 'timer-dot stopped';
+      showResults();
+    }
   }, 1000);
 }
 function timerStop() {
   clearInterval(timerInterval);
   timerInterval = null;
-  timerFinalStr = timerFormat(timerSeconds);
+  const used = TIMER_TOTAL - timerSeconds;
+  timerFinalStr = timerFormat(used);
   const display = document.getElementById('timer-display');
   const dot     = document.getElementById('timer-dot');
   display.className   = 'timer-display stopped';
   dot.className       = 'timer-dot stopped';
-  display.textContent = timerFinalStr;
+  display.textContent = '00:00:00';
 }
 function timerReset() {
   clearInterval(timerInterval);
   timerInterval = null;
-  timerSeconds  = 0;
+  timerSeconds  = TIMER_TOTAL;
   timerFinalStr = '00:00:00';
   const display = document.getElementById('timer-display');
   const dot     = document.getElementById('timer-dot');
   display.className   = 'timer-display';
   dot.className       = 'timer-dot stopped';
-  display.textContent = '00:00:00';
+  display.textContent = timerFormat(timerSeconds);
 }
 
 function toggleCard(card) {
@@ -1157,28 +1063,25 @@ function showResults() {
   const dimMap = {
     'Planificación Pedagógica': {
       label: 'Planificación Pedagógica',
-      areas: ['Área 1: Nivel de formación académica', 'Área 2: Aplicación del currículo', 'Área 3: Resultados de aprendizaje']
+      areas: ['Área 2: Aplicación del currículo', 'Área 3: Resultados de aprendizaje de los estudiantes']
     },
     'Gestión del Aprendizaje': {
       label: 'Gestión del Aprendizaje',
-      areas: ['Área 3: Resultados de aprendizaje', 'Área 6: Liderazgo en el trabajo', 'Área 8: Trabajo en equipo']
+      areas: ['Área 3: Resultados de aprendizaje de los estudiantes']
     },
     'Comportamientos Profesionales': {
       label: 'Comportamientos Profesionales',
-      areas: ['Área 4: Cumplimiento de normas institucionales', 'Área 5: Relaciones con estudiantes, colegas y comunidad', 'Área 6: Liderazgo en el trabajo', 'Área 7: Formación continua', 'Área 8: Trabajo en equipo']
+      areas: ['Área 4: Cumplimiento de normas institucionales', 'Área 5: Relaciones con estudiantes, colegas y comunidad', 'Área 7: Formación continua']
     }
   };
 
   // Nombres cortos para mostrar en la UI
   const areaShortNames = {
-    'Área 1: Nivel de formación académica':                        'Área 1 · Formación académica',
-    'Área 2: Aplicación del currículo':                            'Área 2 · Aplicación del currículo',
-    'Área 3: Resultados de aprendizaje':                           'Área 3 · Resultados de aprendizaje',
-    'Área 4: Cumplimiento de normas institucionales':              'Área 4 · Normas institucionales',
-    'Área 5: Relaciones con estudiantes, colegas y comunidad':     'Área 5 · Relaciones con la comunidad',
-    'Área 6: Liderazgo en el trabajo':                             'Área 6 · Liderazgo',
-    'Área 7: Formación continua':                                  'Área 7 · Formación continua',
-    'Área 8: Trabajo en equipo':                                   'Área 8 · Trabajo en equipo'
+    'Área 2: Aplicación del currículo':                                         'Área 2 · Aplicación del currículo',
+    'Área 3: Resultados de aprendizaje de los estudiantes':                     'Área 3 · Resultados de aprendizaje',
+    'Área 4: Cumplimiento de normas institucionales':                           'Área 4 · Normas institucionales',
+    'Área 5: Relaciones con estudiantes, colegas y comunidad':                  'Área 5 · Relaciones con la comunidad',
+    'Área 7: Formación continua':                                               'Área 7 · Formación continua'
   };
 
   // ── CALCULAR ACIERTOS POR DIMENSIÓN Y ÁREA ─────────────────
@@ -1270,7 +1173,7 @@ function restartQuiz() {
   document.getElementById('results-screen').style.display = 'none';
   document.getElementById('quiz-screen').style.display    = 'block';
   document.getElementById('progress-bar').style.width     = '0%';
-  document.getElementById('score-counter').textContent    = '0 / 50 respondidas';
+  document.getElementById('score-counter').textContent    = '0 / 40 respondidas';
   timerReset();
   timerStart();
   renderQuestion();
