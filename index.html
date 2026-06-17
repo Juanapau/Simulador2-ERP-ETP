@@ -1133,7 +1133,7 @@ function shuffleArray(arr) {
 }
 
 function prepareQuestions() {
-  shuffledQuestions = rawQuestions.map(q => {
+  shuffledQuestions = shuffleArray(rawQuestions).map(q => {
     const opts = q.options.map((txt, idx) => ({ txt, isCorrect: idx === q.correct }));
     const shuffled = shuffleArray(opts);
     const newCorrect = shuffled.findIndex(o => o.isCorrect);
